@@ -10,7 +10,7 @@ return {
 
     null_ls.setup({
       sources = {
-        formatting.black,
+        -- formatting.black,
         diagnostics.mypy,
         diagnostics.ruff.with({
           extra_args = { "--config", vim.fn.expand("~/.config/nvim/lua/plugins/null-ls/ruff.toml"),
