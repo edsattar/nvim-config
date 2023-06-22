@@ -1,0 +1,9 @@
+{
+    "workspace.library": [
+        "/home/ahmed/.local/share/nvim/LazyVim/lazy/neodev.nvim/types/stable",
+        "/tmp/.mount_nvimcNZXsC/usr/share/nvim/runtime/lua",
+        "/home/ahmed/.config/nvim/lua",
+        "/home/ahmed/.local/share/nvim/LazyVim/mason/packages/lua-language-server/libexec/meta/7f5d87b3",
+        "/home/ahmed/.local/share/nvim/Kickstart/mason/packages/lua-language-server/libexec/meta/7f5d87b3"
+    ]
+}
