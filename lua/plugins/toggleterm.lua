@@ -7,6 +7,7 @@ return {
       --   size = 20,
       open_mapping = [[<C-\>]],
       insert_mappings = true, -- mappings enabled in insert mode
+      start_in_insert = true,
     }
 
   end
