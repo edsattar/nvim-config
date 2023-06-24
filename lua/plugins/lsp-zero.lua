@@ -55,7 +55,7 @@ return {
         pylsp = {
           plugins = {
             yapf = { enabled = false }, -- use ruff black
-            -- autopep8 = { enabled = false }, -- use ruff black
+            autopep8 = { enabled = false }, -- use ruff black
             pyflakes = { enabled = false }, -- use ruff pyflakes
             -- E501 line too long
             pycodestyle = { ignore = { "E501", "E241" } },
