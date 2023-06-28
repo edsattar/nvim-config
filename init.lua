@@ -5,6 +5,6 @@ _G.user_terminals = {}
 
 require("lazy-nvim")
 require('keymaps')
+vim.cmd.colorscheme("rose-pine-moon")
 require('options')
 
-vim.cmd.colorscheme("rose-pine-moon")

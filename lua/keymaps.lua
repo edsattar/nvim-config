@@ -7,7 +7,7 @@ local sections = {
   l = { name = " 󰏖 Lazy" },
 }
 
-local utils = require "utils"
+local utils = require("utils")
 local is_available = utils.is_available
 local map = utils.map
 
