@@ -63,6 +63,7 @@ return {
     lspconfig.pylsp.setup({
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
       -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+      default_venv_name = ".venv",
       settings = {
         pylsp = {
           plugins = {
@@ -70,7 +71,7 @@ return {
             autopep8 = { enabled = false }, -- use ruff black
             pyflakes = { enabled = false }, -- use ruff pyflakes
             -- E501 line too long
-            pycodestyle = { ignore = { "E501", "E241" } },
+            pycodestyle = { ignore = { "E501", "E241", "W503" } },
           }
         }
       }
