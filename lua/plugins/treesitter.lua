@@ -20,16 +20,18 @@ return {
         "bash",
         "c",
         "html",
+        "java",
         "javascript",
         "json",
-        'lua',
-        'markdown',
-        'python',
-        'rust',
-        'tsx',
-        'typescript',
-        'vimdoc',
-        'vim'
+        "lua",
+        "markdown",
+        "python",
+        "rust",
+        "svelte",
+        "tsx",
+        "typescript",
+        "vimdoc",
+        "vim"
       },
     }
     -- vim.opt.foldmethod = 'expr'

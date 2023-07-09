@@ -1,6 +1,6 @@
 return {
   "VonHeikemen/lsp-zero.nvim",
-  -- branch = "v2.x",
+  branch = "v2.x",
   dependencies = {
     "neovim/nvim-lspconfig",
     "williamboman/mason.nvim",
@@ -63,10 +63,10 @@ return {
     lspconfig.pylsp.setup({
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
       -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
-      default_venv_name = ".venv",
       settings = {
         pylsp = {
           plugins = {
+            jedi = { environment = "./.venv/bin/python"},
             yapf = { enabled = false },     -- use ruff black
             autopep8 = { enabled = false }, -- use ruff black
             pyflakes = { enabled = false }, -- use ruff pyflakes
