@@ -5,7 +5,6 @@ return {
     "neovim/nvim-lspconfig",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    
   },
   config = function()
     local lsp = require("lsp-zero").preset({})
@@ -26,7 +25,7 @@ return {
 
       bufmap('n', "gh", vim.lsp.buf.hover, "LSP Hover Info")
       bufmap('n', "gi", vim.lsp.buf.implementation, "LSP Implementation")
-      bufmap('n', "go", vim.lsp.buf.type_definition, "LSP Type Definition")
+      bufmap('n', "gt", vim.lsp.buf.type_definition, "LSP Type Definition")
       bufmap('n', "gr", vim.lsp.buf.references, "LSP References")
       bufmap('n', "gs", vim.lsp.buf.signature_help, "LSP Signature Help")
       bufmap({ 'n', 'x' }, "gq", function()
@@ -42,7 +41,10 @@ return {
           foldingRange = {
             dynamicRegistration = false,
             lineFoldingOnly = true
-          } } } })
+          }
+        }
+      }
+    })
 
     lsp.ensure_installed({
       "lua_ls",
@@ -53,6 +55,7 @@ return {
 
     lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
 
+
     -- lspconfig.tsserver.setup({
     --   on_attach = function(client, bufnr)
     --     client.resolved_capabilities.document_formatting = false
@@ -60,22 +63,22 @@ return {
     --   end
     -- })
 
-    lspconfig.pylsp.setup({
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
-      -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
-      settings = {
-        pylsp = {
-          plugins = {
-            jedi = { environment = "./.venv/bin/python"},
-            yapf = { enabled = false },     -- use ruff black
-            autopep8 = { enabled = false }, -- use ruff black
-            pyflakes = { enabled = false }, -- use ruff pyflakes
-            -- E501 line too long
-            pycodestyle = { ignore = { "E501", "E241", "W503" } },
-          }
-        }
-      }
-    })
+    -- lspconfig.pylsp.setup({
+    --   -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
+    --   -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+    --   settings = {
+    --     pylsp = {
+    --       plugins = {
+    --         -- jedi = { environment = "./.venv/bin/python"},
+    --         yapf = { enabled = false },     -- use ruff black
+    --         autopep8 = { enabled = false }, -- use ruff black
+    --         pyflakes = { enabled = false }, -- use ruff pyflakes
+    --         -- E501 line too long
+    --         pycodestyle = { ignore = { "E501", "E241", "W503" } },
+    --       }
+    --     }
+    --   }
+    -- })
 
     lsp.setup()
   end,

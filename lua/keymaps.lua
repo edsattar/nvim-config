@@ -100,16 +100,20 @@ if is_available "mason.nvim" then
   map.n("<leader>lM", "<cmd>MasonUpdateAll<cr>", "Mason Update")
 end
 
-map.n('<Leader>bn', '<cmd>bn<cr>', 'Next buffer')
-map.n('<Leader>bp', '<cmd>bp<cr>', 'Previous buffer')
+-- Buffer
+map.n(']b', '<cmd>bn<cr>', 'Next buffer')
+map.n('[p', '<cmd>bp<cr>', 'Previous buffer')
 map.n('<Leader>bd', '<cmd>bd<cr>', 'Delete buffer')
 
+map.n('<Leader>R', utils.run_file, 'Run file')
 
-map.n('<Leader>r', utils.run_file, 'Run file')
--- vim.keymap.set('n', "<Leader>r", run_file)
-map.n('<Leader>y', '\"+y', 'Yank to system clipboard')
-map.n('<Leader>Y', '\"+Y', 'Yank to system clipboard')
-map.v('<Leader>y', '\"+y', 'Yank to system clipboard')
+-- select/copy/paste
+map.n('vv', 'V', 'Select whole line')
+map.n('vaf', 'ggVG', 'Select whole file')
+map.n('yaf', 'ggVGy', 'Yank whole file')
+map.v('p', 'p:let @+=@0<CR>:let @"=@0<CR>') -- Don't copy the replaced text after pasting in visual mode
+map.nv('<Leader>y', '\"+y', "Yank to system clipboard")
+map.nv('<Leader>p', '\"+p', "Paste from system clipboard")
 -- search-replace word under cursor
 map.n('<Leader>/', ':%s/<C-r><C-w>/', 'Search and replace word under cursor')
 -- navigate tabs
@@ -131,7 +135,7 @@ map.n('<C-Left>', ':vert res -2<CR>', 'Decrease Window Width')
 -- save/quit
 map.n('<C-s>', '<cmd>w<CR>', 'Save file')
 map.i('<C-s>', '<Esc><cmd>w<CR>a', 'Save file')
-map.n('<C-q>', '<cmd>q<cr>', 'Quit')
+map.n('<C-q>', '<cmd>bd<cr>', 'Quit')
 -- comment
 map.n('<C-_>', '<Plug>(comment_toggle_linewise_current)', 'Toggle comment')
 map.x('<C-_>', '<Plug>(comment_toggle_linewise_visual)', 'Toggle comment')
@@ -165,13 +169,6 @@ map.n('J', '<C-d>', 'Move down half page')
 map.n('K', '<C-u>', 'Move up half page')
 -- map.n('n', 'nzzzv', 'Center next match')
 -- map.n('N', 'Nzzzv', 'Center previous match')
--- Visual mode
-map.n('vv', 'V', 'Select whole line')
-map.n('vaf', 'ggVG', 'Select whole file')
-
-map.nv('<Leader>pp', "\"+p", "Paste from system clipboard")
--- Don't copy the replaced text after pasting in visual mode
-map.v('p', 'p:let @+=@0<CR>:let @"=@0<CR>')
 
 -- Clear highlights
 
