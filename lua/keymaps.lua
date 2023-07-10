@@ -100,18 +100,36 @@ if is_available "mason.nvim" then
   map.n("<leader>lM", "<cmd>MasonUpdateAll<cr>", "Mason Update")
 end
 
--- Buffer
+map.n('<Leader>R', utils.run_file, 'Run file')
+
+-- MOVEMENT -- 
+-- disable arrow keys
+map.niv('<Up>', "")
+map.niv('<Up>', "")
+map.niv('<Up>', "")
+map.niv('<Up>', "")
+-- Move through wrapped lines
+map.n('k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map.n('j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+-- Move improvements
+map.n('H', '^', 'Move to the beginning of the line')
+map.n('L', '$', 'Move to the end of the line')
+map.n('J', '<C-d>', 'Move down half page')
+map.n('K', '<C-u>', 'Move up half page')
+-- map.n('n', 'nzzzv', 'Center next match')
+-- map.n('N', 'Nzzzv', 'Center previous match')
+
+-- BUFFER --
 map.n(']b', '<cmd>bn<cr>', 'Next buffer')
 map.n('[p', '<cmd>bp<cr>', 'Previous buffer')
 map.n('<Leader>bd', '<cmd>bd<cr>', 'Delete buffer')
-
-map.n('<Leader>R', utils.run_file, 'Run file')
 
 -- select/copy/paste
 map.n('vv', 'V', 'Select whole line')
 map.n('vaf', 'ggVG', 'Select whole file')
 map.n('yaf', 'ggVGy', 'Yank whole file')
-map.v('p', 'p:let @+=@0<CR>:let @"=@0<CR>') -- Don't copy the replaced text after pasting in visual mode
+-- Don't copy the replaced text after pasting in visual mode
+map.v('p', 'p:let @+=@0<CR>:let @"=@0<CR>')
 map.nv('<Leader>y', '\"+y', "Yank to system clipboard")
 map.nv('<Leader>p', '\"+p', "Paste from system clipboard")
 -- search-replace word under cursor
@@ -160,19 +178,6 @@ map.n('<Tab>', 'v>', 'Indent right')
 map.v('<S-Tab>', '<gv', 'Indent left')
 map.v('<Tab>', '>gv', 'Indent right')
 
--- NAVIGATION -- 
--- disable arrow keys
-map.ni('Up', "")
--- Navigate through wrapped lines
-map.n('k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-map.n('j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
--- Navigation improvements
-map.n('H', '^', 'Move to the beginning of the line')
-map.n('L', '$', 'Move to the end of the line')
-map.n('J', '<C-d>', 'Move down half page')
-map.n('K', '<C-u>', 'Move up half page')
--- map.n('n', 'nzzzv', 'Center next match')
--- map.n('N', 'Nzzzv', 'Center previous match')
 
 -- Clear highlights
 
