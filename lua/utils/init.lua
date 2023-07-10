@@ -85,7 +85,8 @@ M.map = {
   x = M.mapper('x'),
   t = M.mapper('t'),
   ni = M.mapper({'n', 'i'}),
-  nv = M.mapper({'n', 'v'})
+  nv = M.mapper({'n', 'v'}),
+  niv = M.mapper({'n', 'i', 'v'}),
 }
 
 function M.run_file()

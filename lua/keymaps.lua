@@ -154,14 +154,18 @@ map.n('<A-a>', 'J', 'Join lines')
 map.n('<A-s>', 'mzgJ`z', 'Join lines without space')
 -- Toggle wrap
 map.n('<A-z>', function() vim.wo.wrap = not vim.wo.wrap end, 'Toggle Wrap')
--- Navigate through wrapped lines
-map.n('k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-map.n('j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Indent with Shift
 map.n('<S-Tab>', 'v<', 'Indent left')
 map.n('<Tab>', 'v>', 'Indent right')
 map.v('<S-Tab>', '<gv', 'Indent left')
 map.v('<Tab>', '>gv', 'Indent right')
+
+-- NAVIGATION -- 
+-- disable arrow keys
+map.ni('Up', "")
+-- Navigate through wrapped lines
+map.n('k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map.n('j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Navigation improvements
 map.n('H', '^', 'Move to the beginning of the line')
 map.n('L', '$', 'Move to the end of the line')
