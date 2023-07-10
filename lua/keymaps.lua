@@ -105,9 +105,9 @@ map.n('<Leader>R', utils.run_file, 'Run file')
 -- MOVEMENT -- 
 -- disable arrow keys
 map.niv('<Up>', "")
-map.niv('<Up>', "")
-map.niv('<Up>', "")
-map.niv('<Up>', "")
+map.niv('<Down>', "")
+map.niv('<Right>', "")
+map.niv('<Left>', "")
 -- Move through wrapped lines
 map.n('k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map.n('j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
