@@ -128,10 +128,11 @@ map.n('<Leader>bd', '<cmd>bd<cr>', 'Delete buffer')
 map.n('vv', 'V', 'Select whole line')
 map.n('vaf', 'ggVG', 'Select whole file')
 map.n('yaf', 'ggVGy', 'Yank whole file')
+map.nv('<Leader>y', '\"+y', "Yank to system clipboard")
+map.nv('<Leader>pp', '\"+p', "Paste from system clipboard")
+map.nv('<Leader>po', '\"*p', "Paste from selection clipboard")
 -- Don't copy the replaced text after pasting in visual mode
 map.v('p', 'p:let @+=@0<CR>:let @"=@0<CR>')
-map.nv('<Leader>y', '\"+y', "Yank to system clipboard")
-map.nv('<Leader>p', '\"+p', "Paste from system clipboard")
 -- search-replace word under cursor
 map.n('<Leader>/', ':%s/<C-r><C-w>/', 'Search and replace word under cursor')
 -- navigate tabs
