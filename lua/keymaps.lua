@@ -154,7 +154,7 @@ map.n('<C-Left>', ':vert res -2<CR>', 'Decrease Window Width')
 -- save/quit
 map.n('<C-s>', '<cmd>w<CR>', 'Save file')
 map.i('<C-s>', '<Esc><cmd>w<CR>a', 'Save file')
-map.n('<C-q>', '<cmd>bd<cr>', 'Quit')
+map.n('<C-q>', '<cmd>q<cr>', 'Quit')
 -- comment
 map.n('<C-_>', '<Plug>(comment_toggle_linewise_current)', 'Toggle comment')
 map.x('<C-_>', '<Plug>(comment_toggle_linewise_visual)', 'Toggle comment')
