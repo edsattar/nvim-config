@@ -17,7 +17,7 @@ return {
     null_ls.setup({
       sources = {
         formatting.black,
-        formatting.prettier,
+        -- formatting.prettier,
         -- diagnostics.mypy,
         -- diagnostics.ruff.with({
         --   extra_args = { "--config", vim.fn.expand("~/.config/nvim/lua/plugins/null-ls/ruff.toml"),
@@ -27,9 +27,9 @@ return {
     })
 
     -- https://github.com/jay-babu/mason-null-ls.nvim#setup
-    -- require("mason-null-ls").setup({
-    -- ensure_installed = { "black", "prettier" },
-    -- automatic_installation = true,
-    -- })
+    require("mason-null-ls").setup({
+        ensure_installed = { "black", "prettier" },
+        automatic_installation = true,
+    })
   end,
 }
