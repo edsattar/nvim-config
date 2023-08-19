@@ -9,7 +9,7 @@ return {
     require('telescope').setup {
       defaults = {
         prompt_prefix = "   ",
-        initial_mode = "normal",
+        initial_mode = "insert",
         path_display = { "truncate" },
         layout_strategy = "flex",
         layout_config = {

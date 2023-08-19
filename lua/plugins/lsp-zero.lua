@@ -28,7 +28,7 @@ return {
             bufmap('n', "gt", vim.lsp.buf.type_definition, "LSP Type Definition")
             bufmap('n', "gr", vim.lsp.buf.references, "LSP References")
             bufmap('n', "gs", vim.lsp.buf.signature_help, "LSP Signature Help")
-            bufmap({ 'n', 'x' }, "gq", function()
+            bufmap({ 'n', 'x' }, "gf", function()
                 vim.lsp.buf.format({
                     async = false, timeout_ms = 10000, })
             end, "LSP Format File/Selection")
