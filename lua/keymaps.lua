@@ -36,7 +36,7 @@ if is_available "telescope.nvim" then
     tsc.live_grep {
       additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
     }
-  end, 'Find word in all file')
+  end, 'Find word in all files')
 end
 
 -- Terminal
