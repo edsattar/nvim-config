@@ -1,7 +1,0 @@
--- return {
---   "ixru/nvim-markdown",
---   -- event = "VeryLazy",
---   config = function()
-
---   end
--- }

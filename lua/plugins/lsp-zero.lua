@@ -51,7 +51,6 @@ return {
             "lua_ls",
             "eslint",
             "tsserver",
-            "rust_analyzer",
             "jedi_language_server",
         })
 
