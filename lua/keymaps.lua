@@ -123,6 +123,8 @@ map.n('K', '<C-u>', 'Move up half page')
 map.n(']b', '<cmd>bn<cr>', 'Next buffer')
 map.n('[p', '<cmd>bp<cr>', 'Previous buffer')
 map.n('<Leader>bd', '<cmd>bd<cr>', 'Delete buffer')
+map.n('<Leader>bn', '<cmd>bn<cr>', 'Next buffer')
+map.n('<Leader>bp', '<cmd>bp<cr>', 'Prev buffer')
 
 -- select/copy/paste
 map.n('vv', 'V', 'Select whole line')
