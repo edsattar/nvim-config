@@ -15,11 +15,11 @@ local map = utils.map
 if is_available "telescope.nvim" then
   sections.f = { name = " 󰍉 Find" }
   local tsc = require('telescope.builtin')
-  map.n("<leader>gb", tsc.git_branches, "Git branches")
-  map.n("<leader>gc", tsc.git_commits, "Git commits")
-  map.n("<leader>gt", tsc.git_status, "Git status")
-  map.n("<leader>f<CR>", tsc.resume, "Resume previous search")
-  map.n("<leader>f'", tsc.marks, "Find marks")
+  map.n("<Leader>gb", tsc.git_branches, "Git branches")
+  map.n("<Leader>gc", tsc.git_commits, "Git commits")
+  map.n("<Leader>gt", tsc.git_status, "Git status")
+  map.n("<Leader>f<CR>", tsc.resume, "Resume previous search")
+  map.n("<Leader>f'", tsc.marks, "Find marks")
   map.n('<Leader>fb', tsc.buffers, 'Find buffers')
   map.n('<Leader>fc', tsc.grep_string, 'Find word under cursor')
   map.n('<Leader>fC', tsc.commands, 'Find commands')
@@ -54,27 +54,27 @@ if is_available "toggleterm.nvim" then
   -- if you only want these mappings for toggle term use term://*toggleterm#* instead
   vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-  map.n("<leader>tf", ":ToggleTerm direction=float<cr>", "ToggleTerm float")
-  map.n("<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "ToggleTerm ── split")
-  map.n("<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", "ToggleTerm │ split")
+  map.n("<Leader>tf", ":ToggleTerm direction=float<cr>", "ToggleTerm float")
+  map.n("<Leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "ToggleTerm ── split")
+  map.n("<Leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", "ToggleTerm │ split")
 
   local tt = utils.toggle_term_cmd
 
   if vim.fn.executable "node" == 1 then
-    map.n("<leader>tn", function() tt "node" end, "ToggleTerm 󰎙 node")
+    map.n("<Leader>tn", function() tt "node" end, "ToggleTerm 󰎙 node")
   end
 
   local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
   if python then
-    map.n("<leader>tp", function() tt(python) end, "ToggleTerm 󰌠 python")
+    map.n("<Leader>tp", function() tt(python) end, "ToggleTerm 󰌠 python")
   end
 
   if vim.fn.executable "lazygit" == 1 then
-    map.n("<leader>tg", function() tt { cmd = "lazygit", hidden = true, direction = "float" } end, "ToggleTerm 󰊢 lazygit")
+    map.n("<Leader>tg", function() tt { cmd = "lazygit", hidden = true, direction = "float" } end, "ToggleTerm 󰊢 lazygit")
   end
 
   if vim.fn.executable "htop" == 1 then
-    map.n("<leader>to", function() tt { cmd = "htop", hidden = true, direction = "float" } end, "ToggleTerm htop")
+    map.n("<Leader>to", function() tt { cmd = "htop", hidden = true, direction = "float" } end, "ToggleTerm htop")
   end
 end
 
@@ -89,15 +89,15 @@ if is_available "undotree" then
 end
 
 -- Lazy Package Manager
-map.n("<leader>li", function() require("lazy").install() end, "Plugins Install")
-map.n("<leader>ls", function() require("lazy").home() end, "Plugins Status")
-map.n("<leader>lS", function() require("lazy").sync() end, "Plugins Sync")
-map.n("<leader>lu", function() require("lazy").check() end, "Plugins Check Updates")
-map.n("<leader>lU", function() require("lazy").update() end, "Plugins Update")
+map.n("<Leader>li", function() require("lazy").install() end, "Plugins Install")
+map.n("<Leader>ls", function() require("lazy").home() end, "Plugins Status")
+map.n("<Leader>lS", function() require("lazy").sync() end, "Plugins Sync")
+map.n("<Leader>lu", function() require("lazy").check() end, "Plugins Check Updates")
+map.n("<Leader>lU", function() require("lazy").update() end, "Plugins Update")
 
 if is_available "mason.nvim" then
-  map.n("<leader>lm", "<cmd>Mason<cr>", "Mason Installer")
-  map.n("<leader>lM", "<cmd>MasonUpdateAll<cr>", "Mason Update")
+  map.n("<Leader>lm", "<cmd>Mason<cr>", "Mason Installer")
+  map.n("<Leader>lM", "<cmd>MasonUpdateAll<cr>", "Mason Update")
 end
 
 map.n('<Leader>R', utils.run_file, 'Run file')
