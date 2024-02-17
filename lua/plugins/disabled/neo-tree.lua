@@ -9,17 +9,15 @@ return {
     "MunifTanjim/nui.nvim",
     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
   },
-  config = function()
-
-    ---------- Keymaps ----------
-    local map = require('utils').map
-    map.n('<Leader>e', "<cmd>Neotree toggle<cr>", 'Toggle file explorer')
-
-    require('neo-tree').setup {
-      window = {
-        position = "left",
-        width = 20,
+  opts = {
+    window = {
+      position = "left",
+      width = 20,
+    },
+    filesystem = {
+      filtered_items = {
+        visible = true, -- when true, they will just be displayed differently than normal items
       }
     }
-  end
+  }
 }

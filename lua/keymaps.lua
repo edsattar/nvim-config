@@ -10,16 +10,8 @@ local utils = require("utils")
 local is_available = utils.is_available
 local map = utils.map
 
--- Lazy Package Manager
-map.n("<Leader>li", function() require("lazy").install() end, "Plugins Install")
-map.n("<Leader>ll", function() require("lazy").home() end, "Plugins Status")
-map.n("<Leader>lS", function() require("lazy").sync() end, "Plugins Sync")
-map.n("<Leader>lu", function() require("lazy").check() end, "Plugins Check Updates")
-map.n("<Leader>lU", function() require("lazy").update() end, "Plugins Update")
-
-map.n("<Leader>lm", "<cmd>Mason<cr>", "Mason Installer", "mason.nvim")
-map.n("<Leader>lp", "<cmd>LspInfo<cr>", "LSP Info", "nvim-lspconfig")
-
+map.n('<Leader>e', "<cmd>Neotree toggle<cr>", 'Toggle file explorer', "neo-tree.nvim")
+map.n('<Leader>e', "<cmd>NvimTreeToggle<cr>", 'Toggle file explorer', "nvim-tree.lua")
 map.n("ga", vim.lsp.buf.code_action, "LSP Code Actions", "nvim-lspconfig")
 map.n("gh", vim.lsp.buf.hover, "LSP Hover Info", "nvim-lspconfig")
 map.n("gi", vim.lsp.buf.implementation, "LSP Implementation", "nvim-lspconfig")
@@ -27,6 +19,16 @@ map.n("gt", vim.lsp.buf.type_definition, "LSP Type Definition", "nvim-lspconfig"
 map.n("gr", vim.lsp.buf.references, "LSP References", "nvim-lspconfig")
 map.n("gs", vim.lsp.buf.signature_help, "LSP Signature Help", "nvim-lspconfig")
 map.n("gf", vim.lsp.buf.format, "LSP Format File/Selection", "nvim-lspconfig")
+-- Lazy Package Manager
+map.n("<Leader>li", function() require("lazy").install() end, "Plugins Install")
+map.n("<Leader>ll", function() require("lazy").home() end, "Plugins Status")
+map.n("<Leader>lS", function() require("lazy").sync() end, "Plugins Sync")
+map.n("<Leader>lu", function() require("lazy").check() end, "Plugins Check Updates")
+map.n("<Leader>lU", function() require("lazy").update() end, "Plugins Update")
+map.n("<Leader>lm", "<cmd>Mason<cr>", "Mason Installer", "mason.nvim")
+map.n("<Leader>lp", "<cmd>LspInfo<cr>", "LSP Info", "nvim-lspconfig")
+map.n('<Leader>u', vim.cmd.UndotreeToggle, 'Toggle undo tree',"undotree")
+
 
 -- Telescope
 if is_available("telescope.nvim") then
@@ -94,16 +96,6 @@ if is_available "toggleterm.nvim" then
   if vim.fn.executable "htop" == 1 then
     map.n("<Leader>to", function() tt { cmd = "htop", hidden = true, direction = "float" } end, "ToggleTerm htop")
   end
-end
-
--- NeoTree
-if is_available "nvim-tree.lua" then
-  map.n('<Leader>e', vim.cmd.NvimTreeToggle, 'Toggle file explorer')
-end
-
--- UndoTree
-if is_available "undotree" then
-  map.n('<Leader>u', vim.cmd.UndotreeToggle, 'Toggle undo tree')
 end
 
 

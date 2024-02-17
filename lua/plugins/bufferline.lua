@@ -1,3 +1,5 @@
+-- attempts to emulate the aesthetics of GUI text editors
+-- https://github.com/akinsho/bufferline.nvim
 return {
   'akinsho/bufferline.nvim',
   version = "*",
@@ -9,7 +11,7 @@ return {
           {
             filetype = "NvimTree",
             text = "File Explorer",
-            text_align = "center",
+            text_align = "left",
             separator = true,
             separator_style = "thick"
           }
