@@ -66,7 +66,11 @@ function M.mapper(mode)
   ---@param lhs string The keybinding to map
   ---@param rhs string The command to run
   ---@param opts table The options to pass to the keymap
-  return function(lhs, rhs, opts)
+  return function(lhs, rhs, opts, plugin)
+    -- if a plugin is provided, check if it's available before creating the keymap
+    if plugin then
+      if not M.is_available(plugin) then return end
+    end
     -- if opts is a string then set it to opts.desc
     if type(opts) == 'string' then
       opts = { desc = opts }
@@ -79,11 +83,11 @@ function M.mapper(mode)
 end
 
 M.map = {
-  n = M.mapper('n'),
-  v = M.mapper('v'),
-  i = M.mapper('i'),
-  x = M.mapper('x'),
-  t = M.mapper('t'),
+  n = M.mapper('n'), -- normal mode
+  v = M.mapper('v'), -- visual mode
+  i = M.mapper('i'), -- insert mode
+  x = M.mapper('x'), -- visual block mode
+  t = M.mapper('t'), -- terminal mode
   ni = M.mapper({'n', 'i'}),
   nv = M.mapper({'n', 'v'}),
   niv = M.mapper({'n', 'i', 'v'}),

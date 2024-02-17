@@ -1,5 +1,3 @@
-local is_available = require("utils").is_available
-
 vim.opt.autoindent = true         -- Autoindentation
 vim.opt.cursorline = true         -- Highlight the text line of the cursor
 vim.opt.backup = false            -- Number of space in a tab

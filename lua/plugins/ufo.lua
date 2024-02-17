@@ -1,9 +1,11 @@
 -- editor folding
+-- https://github.com/kevinhwang91/nvim-ufo
 return {
   "kevinhwang91/nvim-ufo",
+  event = "VeryLazy",
   dependencies = {
     "kevinhwang91/promise-async",
-    "VonHeikemen/lsp-zero.nvim", },
+  },
   config = function()
     local ftMap = {
       vim = 'indent',

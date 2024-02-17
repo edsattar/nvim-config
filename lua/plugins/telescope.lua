@@ -1,12 +1,26 @@
+-- https://github.com/nvim-telescope/telescope.nvim
+-- https://github.com/nvim-telescope/telescope-fzf-native.nvim
 return {
   "nvim-telescope/telescope.nvim",
+  branch = '0.1.x',
+  event = "VeryLazy",
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
-    { "nvim-telescope/telescope-fzf-native.nvim", enabled = vim.fn.executable "make" == 1, build = "make" }
+    { 'nvim-telescope/telescope-ui-select.nvim' },
+    { "nvim-telescope/telescope-fzf-native.nvim",
+      enabled = vim.fn.executable "make" == 1,
+      build = "make" }
   },
   config = function()
-    local actions = require "telescope.actions"
-    require('telescope').setup {
+    local actions = require("telescope.actions")
+    require('telescope').setup({
+      extensions  = {
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown {
+            -- even more opts
+          },
+        }
+      },
       defaults = {
         prompt_prefix = "   ",
         initial_mode = "insert",
@@ -37,6 +51,8 @@ return {
           },
         },
       }
-    }
+    })
+    require("telescope").load_extension("ui-select")
+    require('telescope').load_extension('fzf')
   end,
 }

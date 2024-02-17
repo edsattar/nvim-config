@@ -1,11 +1,11 @@
 return {
-  "jose-elias-alvarez/null-ls.nvim",
+  "jay-babu/mason-null-ls.nvim",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "jay-babu/mason-null-ls.nvim",
+    "williamboman/mason.nvim",
+    "nvimtools/none-ls.nvim",
   },
   config = function()
-    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
     local null_ls = require("null-ls")
 
     local code_actions = null_ls.builtins.code_actions
@@ -16,20 +16,11 @@ return {
 
     null_ls.setup({
       sources = {
-        formatting.black,
-        -- formatting.prettier,
-        -- diagnostics.mypy,
-        -- diagnostics.ruff.with({
-        --   extra_args = { "--config", vim.fn.expand("~/.config/nvim/lua/plugins/null-ls/ruff.toml"),
-        --   },
-        -- }),
+        formatting.black, -- python
+        formatting.stylua, -- lua
+        formatting.prettierd, -- many ...
+        diagnostics.eslint_d, -- javascript, typescript
       },
-    })
-
-    -- https://github.com/jay-babu/mason-null-ls.nvim#setup
-    require("mason-null-ls").setup({
-        ensure_installed = { "black", "prettier" },
-        automatic_installation = true,
     })
   end,
 }

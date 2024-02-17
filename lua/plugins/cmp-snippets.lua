@@ -1,28 +1,37 @@
 return {
-  "hrsh7th/nvim-cmp",
+  "hrsh7th/nvim-cmp", -- https://github.com/hrsh7th/nvim-cmp
   dependencies = {
-    "VonHeikemen/lsp-zero.nvim",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline",
-    "petertriho/cmp-git",
-    "L3MON4D3/LuaSnip",
-    "onsails/lspkind-nvim",
+    "hrsh7th/cmp-nvim-lsp", -- https://github.com/hrsh7th/cmp-nvim-lsp
+    "hrsh7th/cmp-buffer", -- https://github.com/hrsh7th/cmp-buffer
+    "hrsh7th/cmp-path", -- https://github.com/hrsh7th/cmp-path
+    "hrsh7th/cmp-cmdline", -- https://github.com/hrsh7th/cmp-cmdline
+    "petertriho/cmp-git", -- provide completions from git source https://github.com/petertriho/cmp-git
+    "L3MON4D3/LuaSnip", -- Snippets plugin https://github.com/L3MON4D3/LuaSnip
+    "onsails/lspkind-nvim", -- adds vscode-like pictograms https://github.com/onsails/lspkind-nvim
     "nvim-tree/nvim-web-devicons"
   },
   config = function()
     -- check if line is empty
     local check_backspace = function()
       local col = vim.fn.col '.' - 1
-      return col == 0 or vim.fn.getline('.'):sub(col, col):match "%s"
+      return col == 0 or vim.fn.getline('.')
+                            :sub(col, col)
+                            :match "%s"
     end
+
     local cmp = require("cmp")
     local luasnip = require "luasnip"
     local select_opts = { behavior = cmp.SelectBehavior.Select }
     cmp.setup({
       snippet = {
-        expand = function(args) luasnip.lsp_expand(args.body) end, -- For `luasnip` users.
+        expand = function(args) 
+          -- For `luasnip` users.
+          luasnip.lsp_expand(args.body) 
+        end,
+      },
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
       },
       sources = {
         { name = "nvim_lsp" },
@@ -78,10 +87,6 @@ return {
             -- latex_symbols = "[Latex]",
           })
         })
-      },
-      window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
       },
     })
     -- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).

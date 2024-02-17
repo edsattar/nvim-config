@@ -1,21 +1,17 @@
+-- https://github.com/nvim-treesitter/nvim-treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+-- https://github.com/windwp/nvim-ts-autotag
+-- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 return {
   -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    "windwp/nvim-ts-autotag",
-    "JoosepAlviste/nvim-ts-context-commentstring"
+    'nvim-treesitter/nvim-treesitter-textobjects', -- Syntax aware text-objects, select, move, swap, and peek support.
+    "windwp/nvim-ts-autotag", -- Use treesitter to autoclose and autorename html tag
   },
   config = function()
     require('nvim-treesitter.configs').setup {
-      highlight = {
-        enable = true,
-        disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
-      },
-      indent = { enable = true },
-      autotag = { enable = true },
-      context_commentstring = { enable = true, enable_autocmd = false },
       ensure_installed = {
         "bash",
         "c",
@@ -33,6 +29,21 @@ return {
         "vimdoc",
         "vim"
       },
+      -- Install parsers synchronously (only applied to `ensure_installed`)
+      sync_install = false,
+      highlight = {
+        enable = true,
+        -- disable slow treesitter highlight for large files
+        disable = function(lang, buf)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+              return true
+          end
+        end,
+      },
+      indent = { enable = true },
+      autotag = { enable = true },
     }
     -- vim.opt.foldmethod = 'expr'
     -- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'

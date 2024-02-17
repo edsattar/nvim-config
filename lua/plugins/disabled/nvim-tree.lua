@@ -1,16 +1,22 @@
+-- A File Explorer For Neovim Written In Lua
+-- https://github.com/nvim-tree/nvim-tree.lua
 return {
   "nvim-tree/nvim-tree.lua",
+  event = "VeryLazy",
   dependencies = { "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
   config = function()
-    vim.g.loaded_netrw = 1       -- Disable netrw for neo-tree
-    vim.g.loaded_netrwPlugin = 1 -- Disable netrwPlugin for neo-tree
-
     local nvimtree = require("nvim-tree")
     local function my_on_attach(bufnr)
-      local api = require "nvim-tree.api"
+      local api = require("nvim-tree.api")
 
       local function opts(desc)
-        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        return { 
+          desc = "nvim-tree: " .. desc,
+          buffer = bufnr,
+          noremap = true,
+          silent = true,
+          nowait = true
+        }
       end
 
       -- default mappings --

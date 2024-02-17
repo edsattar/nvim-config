@@ -1,6 +1,5 @@
 -- https://neovim.io/doc/user/lua-guide.html#lua-guide-mappings
 
-local wk = require "which-key"
 local sections = {
   b = { name = " 󰓩 Buffers" },
   g = { name = " 󰊢 Git" },
@@ -11,8 +10,26 @@ local utils = require("utils")
 local is_available = utils.is_available
 local map = utils.map
 
+-- Lazy Package Manager
+map.n("<Leader>li", function() require("lazy").install() end, "Plugins Install")
+map.n("<Leader>ll", function() require("lazy").home() end, "Plugins Status")
+map.n("<Leader>lS", function() require("lazy").sync() end, "Plugins Sync")
+map.n("<Leader>lu", function() require("lazy").check() end, "Plugins Check Updates")
+map.n("<Leader>lU", function() require("lazy").update() end, "Plugins Update")
+
+map.n("<Leader>lm", "<cmd>Mason<cr>", "Mason Installer", "mason.nvim")
+map.n("<Leader>lp", "<cmd>LspInfo<cr>", "LSP Info", "nvim-lspconfig")
+
+map.n("ga", vim.lsp.buf.code_action, "LSP Code Actions", "nvim-lspconfig")
+map.n("gh", vim.lsp.buf.hover, "LSP Hover Info", "nvim-lspconfig")
+map.n("gi", vim.lsp.buf.implementation, "LSP Implementation", "nvim-lspconfig")
+map.n("gt", vim.lsp.buf.type_definition, "LSP Type Definition", "nvim-lspconfig")
+map.n("gr", vim.lsp.buf.references, "LSP References", "nvim-lspconfig")
+map.n("gs", vim.lsp.buf.signature_help, "LSP Signature Help", "nvim-lspconfig")
+map.n("gf", vim.lsp.buf.format, "LSP Format File/Selection", "nvim-lspconfig")
+
 -- Telescope
-if is_available "telescope.nvim" then
+if is_available("telescope.nvim") then
   sections.f = { name = " 󰍉 Find" }
   local tsc = require('telescope.builtin')
   map.n("<Leader>gb", tsc.git_branches, "Git branches")
@@ -39,7 +56,7 @@ if is_available "telescope.nvim" then
   end, 'Find word in all files')
 end
 
--- Terminal
+-- toggleTerminal
 if is_available "toggleterm.nvim" then
   sections.t = { name = "  Terminal" }
   function _G.set_terminal_keymaps()
@@ -51,7 +68,8 @@ if is_available "toggleterm.nvim" then
     vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
   end
 
-  -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+  -- if you only want these mappings for
+  -- toggle term use term://*toggleterm#* instead
   vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
   map.n("<Leader>tf", ":ToggleTerm direction=float<cr>", "ToggleTerm float")
@@ -88,21 +106,20 @@ if is_available "undotree" then
   map.n('<Leader>u', vim.cmd.UndotreeToggle, 'Toggle undo tree')
 end
 
--- Lazy Package Manager
-map.n("<Leader>li", function() require("lazy").install() end, "Plugins Install")
-map.n("<Leader>ls", function() require("lazy").home() end, "Plugins Status")
-map.n("<Leader>lS", function() require("lazy").sync() end, "Plugins Sync")
-map.n("<Leader>lu", function() require("lazy").check() end, "Plugins Check Updates")
-map.n("<Leader>lU", function() require("lazy").update() end, "Plugins Update")
 
-if is_available "mason.nvim" then
-  map.n("<Leader>lm", "<cmd>Mason<cr>", "Mason Installer")
-  map.n("<Leader>lM", "<cmd>MasonUpdateAll<cr>", "Mason Update")
+-- Comment.nvim
+if is_available "Comment" then
+  map.n('<C-_>', '<Plug>(comment_toggle_linewise_current)', 'Toggle comment')
+  map.x('<C-_>', '<Plug>(comment_toggle_linewise_visual)', 'Toggle comment')
+  map.i('<C-_>', '<Esc><Plug>(comment_toggle_linewise_current)a', 'Toggle comment')
+  map.n('<A-/>', '<Plug>(comment_toggle_blockwise_current)', 'Toggle blockwise comment')
+  map.x('<A-/>', '<Plug>(comment_toggle_blockwise_visual)', 'Toggle blockwise comment')
+  map.i('<A-/>', '<Esc><Plug>(comment_toggle_blockwise_current)a', 'Toggle blockwise comment')
 end
 
 map.n('<Leader>R', utils.run_file, 'Run file')
 
--- MOVEMENT -- 
+-- MOVEMENT --
 -- disable arrow keys
 map.niv('<Up>', "")
 map.niv('<Down>', "")
@@ -118,7 +135,6 @@ map.n('J', '<C-d>', 'Move down half page')
 map.n('K', '<C-u>', 'Move up half page')
 -- map.n('n', 'nzzzv', 'Center next match')
 -- map.n('N', 'Nzzzv', 'Center previous match')
-
 -- BUFFER --
 map.n(']b', '<cmd>bn<cr>', 'Next buffer')
 map.n('[p', '<cmd>bp<cr>', 'Previous buffer')
@@ -157,13 +173,7 @@ map.n('<C-Left>', ':vert res -2<CR>', 'Decrease Window Width')
 map.n('<C-s>', '<cmd>w<CR>', 'Save file')
 map.i('<C-s>', '<Esc><cmd>w<CR>a', 'Save file')
 map.n('<C-q>', '<cmd>q<cr>', 'Quit')
--- comment
-map.n('<C-_>', '<Plug>(comment_toggle_linewise_current)', 'Toggle comment')
-map.x('<C-_>', '<Plug>(comment_toggle_linewise_visual)', 'Toggle comment')
-map.i('<C-_>', '<Esc><Plug>(comment_toggle_linewise_current)a', 'Toggle comment')
-map.n('<A-/>', '<Plug>(comment_toggle_blockwise_current)', 'Toggle blockwise comment')
-map.x('<A-/>', '<Plug>(comment_toggle_blockwise_visual)', 'Toggle blockwise comment')
-map.i('<A-/>', '<Esc><Plug>(comment_toggle_blockwise_current)a', 'Toggle blockwise comment')
+
 -- Shift line up or down
 map.n('<A-j>', '<cmd>m+1<cr>', 'Move line down')
 map.n('<A-k>', '<cmd>m-2<cr>', 'Move line up')
@@ -190,5 +200,7 @@ map.n('<Esc>', ':noh <cr>')
 -- vim.cmd([[
 --   autocmd FileType python nnoremap <buffer> <Leader>r :lua RunPython()
 --   ]])
-
-wk.register(sections, { prefix = "<Leader>" })
+if is_available "which-key.nvim" then
+  local wk = require("which-key")
+  wk.register(sections, { prefix = "<Leader>" })
+end
