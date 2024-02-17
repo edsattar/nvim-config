@@ -2,6 +2,7 @@
 -- https://github.com/goolord/alpha-nvim
 return {
   'goolord/alpha-nvim',
+  dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     ---------- Keymaps ----------
     local map = require('utils').map
