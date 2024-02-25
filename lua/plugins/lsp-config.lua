@@ -19,12 +19,17 @@ return {
 		})
 
 		require("mason-lspconfig").setup({
-			ensure_installed = { "lua_ls", "tsserver" },
+			ensure_installed = { "lua_ls", "tailwindcss", "tsserver", "emmet_language_server" },
 		})
 
 		local lspconfig = require("lspconfig")
 
 		lspconfig.lua_ls.setup({})
 		lspconfig.tsserver.setup({})
+		lspconfig.tailwindcss.setup({})
+		lspconfig.emmet_language_server.setup({
+			filetypes = { "html", "javascriptreact", "typescriptreact" },
+
+		})
 	end,
 }
