@@ -13,12 +13,13 @@ local map = utils.map
 map.n('<Leader>e', "<cmd>Neotree toggle<cr>", 'Toggle file explorer', "neo-tree.nvim")
 map.n('<Leader>e', "<cmd>NvimTreeToggle<cr>", 'Toggle file explorer', "nvim-tree.lua")
 map.n("ga", vim.lsp.buf.code_action, "LSP Code Actions", "nvim-lspconfig")
+map.n("gf", vim.lsp.buf.format, "LSP Format File/Selection", "nvim-lspconfig")
 map.n("gh", vim.lsp.buf.hover, "LSP Hover Info", "nvim-lspconfig")
 map.n("gi", vim.lsp.buf.implementation, "LSP Implementation", "nvim-lspconfig")
-map.n("gt", vim.lsp.buf.type_definition, "LSP Type Definition", "nvim-lspconfig")
-map.n("gr", vim.lsp.buf.references, "LSP References", "nvim-lspconfig")
+map.n("gm", vim.lsp.buf.references, "LSP Mentions", "nvim-lspconfig")
+map.n("gr", vim.lsp.buf.rename, "LSP Rename under cursor", "nvim-lspconfig")
 map.n("gs", vim.lsp.buf.signature_help, "LSP Signature Help", "nvim-lspconfig")
-map.n("gf", vim.lsp.buf.format, "LSP Format File/Selection", "nvim-lspconfig")
+map.n("gt", vim.lsp.buf.type_definition, "LSP Type Definition", "nvim-lspconfig")
 -- Lazy Package Manager
 map.n("<Leader>li", function() require("lazy").install() end, "Plugins Install")
 map.n("<Leader>ll", function() require("lazy").home() end, "Plugins Status")
@@ -27,35 +28,35 @@ map.n("<Leader>lu", function() require("lazy").check() end, "Plugins Check Updat
 map.n("<Leader>lU", function() require("lazy").update() end, "Plugins Update")
 map.n("<Leader>lm", "<cmd>Mason<cr>", "Mason Installer", "mason.nvim")
 map.n("<Leader>lp", "<cmd>LspInfo<cr>", "LSP Info", "nvim-lspconfig")
-map.n('<Leader>u', vim.cmd.UndotreeToggle, 'Toggle undo tree',"undotree")
+map.n('<Leader>u', vim.cmd.UndotreeToggle, 'Toggle undo tree', "undotree")
 
 
 -- Telescope
 if is_available("telescope.nvim") then
   sections.f = { name = " 󰍉 Find" }
   local tsc = require('telescope.builtin')
-  map.n("<Leader>gb", tsc.git_branches, "Git branches")
-  map.n("<Leader>gc", tsc.git_commits, "Git commits")
-  map.n("<Leader>gt", tsc.git_status, "Git status")
-  map.n("<Leader>f<CR>", tsc.resume, "Resume previous search")
-  map.n("<Leader>f'", tsc.marks, "Find marks")
-  map.n('<Leader>fb', tsc.buffers, 'Find buffers')
-  map.n('<Leader>fc', tsc.grep_string, 'Find word under cursor')
-  map.n('<Leader>fC', tsc.commands, 'Find commands')
-  map.n('<Leader>ff', function() if not pcall(tsc.git_files) then tsc.find_files() end end, 'Find git files')
-  map.n('<Leader>fF', function() tsc.find_files { hidden = true, no_ignore = true } end, 'Find files')
-  map.n('<Leader>fh', tsc.help_tags, 'Find help')
-  map.n('<Leader>fk', tsc.keymaps, 'Find keymaps')
-  map.n('<Leader>fm', tsc.man_pages, 'Find man(manual) pages')
-  map.n('<Leader>fo', tsc.oldfiles, 'Find opened(recently opened) files')
-  map.n('<Leader>fr', tsc.registers, 'Find registers')
-  map.n('<Leader>ft', function() tsc.colorscheme { enable_preview = true } end, 'Find themes')
-  map.n('<Leader>fw', tsc.live_grep, 'Find word')
+  map.n("<Leader>gb", tsc.git_branches, "Git branches", "telescope.nvim")
+  map.n("<Leader>gc", tsc.git_commits, "Git commits", "telescope.nvim")
+  map.n("<Leader>gt", tsc.git_status, "Git status", "telescope.nvim")
+  map.n("<Leader>f<CR>", tsc.resume, "Resume previous search", "telescope.nvim")
+  map.n("<Leader>f'", tsc.marks, "Find marks", "telescope.nvim")
+  map.n('<Leader>fb', tsc.buffers, 'Find buffers', "telescope.nvim")
+  map.n('<Leader>fc', tsc.grep_string, 'Find word under cursor', "telescope.nvim")
+  map.n('<Leader>fC', tsc.commands, 'Find commands', "telescope.nvim")
+  map.n('<Leader>ff', function() if not pcall(tsc.git_files) then tsc.find_files() end end, 'Find git files', "telescope.nvim")
+  map.n('<Leader>fF', function() tsc.find_files { hidden = true, no_ignore = true } end, 'Find files', "telescope.nvim")
+  map.n('<Leader>fh', tsc.help_tags, 'Find help', "telescope.nvim")
+  map.n('<Leader>fk', tsc.keymaps, 'Find keymaps', "telescope.nvim")
+  map.n('<Leader>fm', tsc.man_pages, 'Find man(manual) pages', "telescope.nvim")
+  map.n('<Leader>fo', tsc.oldfiles, 'Find opened(recently opened) files', "telescope.nvim")
+  map.n('<Leader>fr', tsc.registers, 'Find registers', "telescope.nvim")
+  map.n('<Leader>ft', function() tsc.colorscheme { enable_preview = true } end, 'Find themes', "telescope.nvim")
+  map.n('<Leader>fw', tsc.live_grep, 'Find word', "telescope.nvim")
   map.n('<Leader>fW', function()
     tsc.live_grep {
       additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
     }
-  end, 'Find word in all files')
+  end, 'Find word in all files', "telescope.nvim")
 end
 
 -- toggleTerminal
