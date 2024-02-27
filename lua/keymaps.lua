@@ -101,7 +101,7 @@ end
 
 
 -- Comment.nvim
-if is_available "Comment" then
+if is_available "Comment.nvim" then
   map.n('<C-_>', '<Plug>(comment_toggle_linewise_current)', 'Toggle comment')
   map.x('<C-_>', '<Plug>(comment_toggle_linewise_visual)', 'Toggle comment')
   map.i('<C-_>', '<Esc><Plug>(comment_toggle_linewise_current)a', 'Toggle comment')
