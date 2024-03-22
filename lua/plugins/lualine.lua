@@ -3,7 +3,7 @@ return {-- Set lualine as statusline
     -- See `:help lualine.txt`
     opts = {
       options = {
-        theme = 'rose-pine',
+        theme = 'onedark',
         component_separators = '|',
         -- section_separators = '',
       },
