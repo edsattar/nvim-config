@@ -23,7 +23,7 @@ return {
 				formatting.black, -- python
 				formatting.stylua, -- lua
 				formatting.prettierd, -- many ...
-				diagnostics.eslint_d, -- javascript, typescript
+				-- diagnostics.eslint_d, -- javascript, typescript
 			},
 		})
 	end,

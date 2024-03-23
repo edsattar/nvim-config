@@ -29,7 +29,7 @@ return {
     -- -- for ufo.nvim
     -- vim.opt.foldcolumn = '1'   -- '0' is not bad
     -- vim.opt.foldlevel = 99     -- Using ufo provider need a large value 
-    -- vim.opt.foldlevelstart = -1
+    vim.opt.foldlevelstart = -1
     -- vim.opt.foldenable = true
   end
 }
