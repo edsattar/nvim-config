@@ -8,8 +8,8 @@ return {
     vim.o.timeoutlen = 300
   end,
   opts = {
-    icons = { 
-      group = vim.g.icons_enabled and "" or "+", 
+    icons = {
+      group = vim.g.icons_enabled and "" or "+",
       separator = "" },
     -- disable = { filetypes = { "TelescopePrompt" } },
   }
