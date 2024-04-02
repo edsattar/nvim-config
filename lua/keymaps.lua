@@ -171,6 +171,8 @@ map.nv("<Leader>po", '"*p', "Paste from selection clipboard")
 map.v("p", 'p:let @+=@0<CR>:let @"=@0<CR>')
 -- search-replace word under cursor
 map.n("<Leader>/", ":%s/<C-r><C-w>/", "Search and replace word under cursor")
+-- visual mode search and replace selected text
+map.v("<Leader>/", '"hy:%s/<C-r>h//gc<left><left><left>', "Search and replace selected text")
 -- navigate windows
 map.n("<C-h>", "<C-w>h", "jump to left window")
 map.n("<C-l>", "<C-w>l", "jump to right window")
