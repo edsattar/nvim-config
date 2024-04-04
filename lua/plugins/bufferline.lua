@@ -20,7 +20,7 @@ return {
           local dir = vim.fn.fnamemodify(buf.path, ":h:t")
           local bufname = dir .. '/' .. buf.name
           if #bufname > 17 then
-            return vim.fn.pathshorten(bufname, 2)
+            return vim.fn.pathshorten(bufname, 3)
           end
 
           return bufname
