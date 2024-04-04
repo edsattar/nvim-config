@@ -8,8 +8,8 @@ _G.user_terminals = {}
 
 
 vim.g.markdown_recommended_style = 0
-vim.g.vim_markdown_conceal = 2
-vim.g.vim_markdown_conceal_code_blocks = 0
+-- vim.g.vim_markdown_conceal = 2
+-- vim.g.vim_markdown_conceal_code_blocks = 0
 
 require("lazy-nvim")
 require('keymaps')
