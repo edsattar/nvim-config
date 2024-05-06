@@ -40,6 +40,24 @@ map.n("<Leader>u", vim.cmd.UndotreeToggle, "Toggle undo tree", "undotree")
 if is_available("telescope.nvim") then
 	sections.f = { name = " 󰍉 Find" }
 	local tsc = require("telescope.builtin")
+  local function tsc_find_git_files()
+    if not pcall(tsc.git_files) then
+      tsc.find_files()
+    end
+  end
+  local function tsc_find_all_files()
+    tsc.find_files({ hidden = true, no_ignore = true })
+  end
+  local function tsc_find_all_words()
+	tsc.live_grep({
+			additional_args = function(args)
+				return vim.list_extend(args, { "--hidden", "--no-ignore" })
+			end,
+		})
+  end
+  local function tsc_color_scheme()
+		tsc.colorscheme({ enable_preview = true })
+	end
 	map.n("<Leader>gb", tsc.git_branches, "Git branches", "telescope.nvim")
 	map.n("<Leader>gc", tsc.git_commits, "Git commits", "telescope.nvim")
 	map.n("<Leader>gt", tsc.git_status, "Git status", "telescope.nvim")
@@ -48,30 +66,16 @@ if is_available("telescope.nvim") then
 	map.n("<Leader>fb", tsc.buffers, "Find buffers", "telescope.nvim")
 	map.n("<Leader>fc", tsc.grep_string, "Find word under cursor", "telescope.nvim")
 	map.n("<Leader>fC", tsc.commands, "Find commands", "telescope.nvim")
-	map.n("<Leader>ff", function()
-		if not pcall(tsc.git_files) then
-			tsc.find_files()
-		end
-	end, "Find git files", "telescope.nvim")
-	map.n("<Leader>fF", function()
-		tsc.find_files({ hidden = true, no_ignore = true })
-	end, "Find files", "telescope.nvim")
+	map.n("<Leader>ff", tsc_find_git_files, "Find git files", "telescope.nvim")
+	map.n("<Leader>fF", tsc_find_all_files, "Find files", "telescope.nvim")
 	map.n("<Leader>fh", tsc.help_tags, "Find help", "telescope.nvim")
 	map.n("<Leader>fk", tsc.keymaps, "Find keymaps", "telescope.nvim")
 	map.n("<Leader>fm", tsc.man_pages, "Find man(manual) pages", "telescope.nvim")
 	map.n("<Leader>fo", tsc.oldfiles, "Find opened(recently opened) files", "telescope.nvim")
 	map.n("<Leader>fr", tsc.registers, "Find registers", "telescope.nvim")
-	map.n("<Leader>ft", function()
-		tsc.colorscheme({ enable_preview = true })
-	end, "Find themes", "telescope.nvim")
+	map.n("<Leader>ft", tsc_color_scheme, "Find themes", "telescope.nvim")
 	map.n("<Leader>fw", tsc.live_grep, "Find word", "telescope.nvim")
-	map.n("<Leader>fW", function()
-		tsc.live_grep({
-			additional_args = function(args)
-				return vim.list_extend(args, { "--hidden", "--no-ignore" })
-			end,
-		})
-	end, "Find word in all files", "telescope.nvim")
+	map.n("<Leader>fW", tsc_find_all_words, "Find word in all files", "telescope.nvim")
 end
 
 -- toggleTerminal
@@ -93,7 +97,6 @@ if is_available("toggleterm.nvim") then
 	map.n("<Leader>tf", ":ToggleTerm direction=float<cr>", "ToggleTerm float")
 	map.n("<Leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "ToggleTerm ── split")
 	map.n("<Leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", "ToggleTerm │ split")
-
 	local tt = utils.toggle_term_cmd
 
 	if vim.fn.executable("node") == 1 then
@@ -144,12 +147,12 @@ map.niv("<Left>", "")
 map.n("k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map.n("j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Move improvements
-map.n("H", "^", "Move to the beginning of the line")
-map.n("L", "$", "Move to the end of the line")
-map.n("J", "<C-d>", "Move down half page")
-map.n("K", "<C-u>", "Move up half page")
--- map.n('n', 'nzzzv', 'Center next match')
--- map.n('N', 'Nzzzv', 'Center previous match')
+map.nv("H", "0", "Move to the beginning of the line")
+map.nv("L", "$", "Move to the end of the line")
+map.n("J", "<C-d>zz", "Move down half page")
+map.n("K", "<C-u>zz", "Move up half page")
+map.n('n', 'nzz', 'Center next match')
+map.n('N', 'Nzz', 'Center previous match')
 -- BUFFER --
 map.n("]b", "<cmd>bn<cr>", "Next buffer")
 map.n("[b", "<cmd>bp<cr>", "Previous buffer")
@@ -162,6 +165,7 @@ map.n("[t", "<cmd>tabprevious<cr>", "Previous tab")
 
 -- select/copy/paste
 map.n("vv", "V", "Select whole line")
+map.n("V", "v$", "Select to end of line")
 map.n("vaf", "ggVG", "Select whole file")
 map.n("yaf", "ggVGy", "Yank whole file")
 map.nv("<Leader>y", '"+y', "Yank to system clipboard")
@@ -173,14 +177,6 @@ map.v("p", 'p:let @+=@0<CR>:let @"=@0<CR>')
 map.n("<Leader>/", ":%s/<C-r><C-w>/", "Search and replace word under cursor")
 -- visual mode search and replace selected text
 map.v("<Leader>/", '"hy:%s/<C-r>h//gc<left><left><left>', "Search and replace selected text")
--- navigate windows
-map.n("<C-h>", "<C-w>h", "jump to left window")
-map.n("<C-l>", "<C-w>l", "jump to right window")
-map.n("<C-j>", "<C-w>j", "jump to window below")
-map.n("<C-k>", "<C-w>k", "jump to window above")
--- windows
-map.n("|", "<C-w>v", "split window vertically")
-map.n("_", "<C-w>s", "split window horizontally")
 -- resize windows
 map.n("<C-Up>", ":hori res +1<CR>", "Increase Window Height")
 map.n("<C-Down>", ":hori res -2<CR>", "Decrease Window Height")
@@ -196,6 +192,8 @@ map.n("<A-j>", "<cmd>m+1<cr>", "Move line down")
 map.n("<A-k>", "<cmd>m-2<cr>", "Move line up")
 map.v("<A-j>", ":m'>+1<cr>gv=gv", "Move line down")
 map.v("<A-k>", ":m'<-2<cr>gv=gv", "Move line up")
+map.v("<A-h>", "xhP`[v`]", "Move selection left")
+map.v("<A-l>", "xp`[v`]", "Move selection left")
 -- Join lines
 -- map.n('<A-a>', 'mzJ`z', 'Join lines')
 map.n("<A-a>", "J", "Join lines")

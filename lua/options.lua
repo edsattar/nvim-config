@@ -17,12 +17,12 @@ vim.opt.termguicolors = true      -- Enable 24-bit RGB colors
 vim.opt.undofile = true           -- Enable persistent undo
 vim.opt.wrap = false
 
-vim.opt.conceallevel = 2         -- Disable concealing
+vim.opt.conceallevel = 0         -- Disable concealing
 
 -- for ufo.nvim
 vim.opt.foldcolumn = '1'     -- '0' is not bad
 vim.opt.foldlevel = 99       -- Using ufo provider need a large value
-vim.opt.foldlevelstart = -1
+vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 
 -- The following sets Relative line numbering only

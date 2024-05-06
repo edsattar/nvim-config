@@ -1,6 +1,6 @@
-  -- See `:help indent-blankline` ┆¦ █ ┃
+-- See `:help indent-blankline` ┆¦ █ ┃
 return {
-  "lukas-reineke/indent-blankline.nvim", 
-  main = "ibl", 
-  opts = {}
+	"lukas-reineke/indent-blankline.nvim",
+	main = "ibl",
+	opts = {},
 }
