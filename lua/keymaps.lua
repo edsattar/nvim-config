@@ -202,11 +202,6 @@ map.n("<A-s>", "mzgJ`z", "Join lines without space")
 map.n("<A-z>", function()
 	vim.wo.wrap = not vim.wo.wrap
 end, "Toggle Wrap")
--- Indent with Shift
-map.n("<S-Tab>", "v<", "Indent left")
-map.n("<Tab>", "v>", "Indent right")
-map.v("<S-Tab>", "<gv", "Indent left")
-map.v("<Tab>", ">gv", "Indent right")
 
 -- Clear highlights
 
