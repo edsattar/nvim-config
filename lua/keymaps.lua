@@ -13,17 +13,6 @@ local sections = {
 
 map.n("<Leader>e", "<cmd>Neotree toggle<cr>", "Toggle file explorer", "neo-tree.nvim")
 map.n("<Leader>e", "<cmd>NvimTreeToggle<cr>", "Toggle file explorer", "nvim-tree.lua")
-map.n("ga", vim.lsp.buf.code_action, "LSP Code Actions", "nvim-lspconfig")
-map.n("gd", vim.lsp.buf.definition, "LSP Definition", "nvim-lspconfig")
-map.n("gD", vim.lsp.buf.declaration, "LSP Declaration", "nvim-lspconfig")
-map.n("ge", vim.diagnostic.open_float, "LSP Error Info", "nvim-lspconfig")
-map.n("gf", vim.lsp.buf.format, "LSP Format File/Selection", "nvim-lspconfig")
-map.n("gh", vim.lsp.buf.hover, "LSP Hover Info", "nvim-lspconfig")
-map.n("gi", vim.lsp.buf.implementation, "LSP Implementation", "nvim-lspconfig")
-map.n("gm", vim.lsp.buf.references, "LSP Mentions", "nvim-lspconfig")
-map.n("gr", vim.lsp.buf.rename, "LSP Rename under cursor", "nvim-lspconfig")
-map.n("gs", vim.lsp.buf.signature_help, "LSP Signature Help", "nvim-lspconfig")
-map.n("gt", vim.lsp.buf.type_definition, "LSP Type Definition", "nvim-lspconfig")
 map.n("[e", vim.diagnostic.goto_prev, "Previous diagnostic", "nvim-lspconfig")
 map.n("]e", vim.diagnostic.goto_next, "Next diagnostic", "nvim-lspconfig")
 -- Lazy Package Manager
