@@ -23,7 +23,7 @@ return {
       -- api.config.mappings.default_on_attach(bufnr)
 
       vim.keymap.set('n', '<C-]>',   api.tree.change_root_to_node,        opts('CD'))
-      vim.keymap.set('n', '<C-[',    api.tree.change_root_to_parent,      opts('CD ..'))
+      vim.keymap.set('n', '<C-[>',   api.tree.change_root_to_parent,      opts('CD ..'))
       vim.keymap.set('n', 'q',       api.tree.close,                      opts('Close'))
       vim.keymap.set('n', '<Esc>',   api.tree.close,                      opts('Close'))
       vim.keymap.set('n', 'za',      api.tree.collapse_all,               opts('Collapse'))

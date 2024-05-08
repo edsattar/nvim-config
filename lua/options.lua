@@ -4,26 +4,25 @@ vim.opt.backup = false            -- Number of space in a tab
 vim.opt.breakindent = true        -- Wrap indent to match  line start
 vim.opt.expandtab = true          -- Enable the use of space in tab
 vim.opt.fillchars = { eob = " " } -- Disable `~` on nonexistent lines
+vim.opt.foldcolumn = '1'          -- '0' is not bad
+vim.opt.foldenable = true         -- enable fold for nvim-ufo
+vim.opt.foldlevel = 99            -- set high foldlevel for nvim-ufo
+vim.opt.foldlevelstart = 99       -- start with all code unfolded
 vim.opt.hlsearch = false          -- Disable search highlight
 vim.opt.incsearch = true          -- Incremental search
 vim.opt.number = true             -- Show numberline
 vim.opt.scrolloff = 10            -- Number of lines to keep above and below the cursor
-vim.opt.shiftwidth = 2            -- Number of space inserted for indentation
+vim.opt.shiftwidth = 0            -- number of space inserted for indentation; when zero the 'tabstop' value will be used
 vim.opt.smartindent = true        -- Smarter autoindentation
 vim.opt.softtabstop = 2           -- Number of space in a tab
 vim.opt.swapfile = false          -- Disable swapfile
 vim.opt.tabstop = 2               -- Number of space in a tab
 vim.opt.termguicolors = true      -- Enable 24-bit RGB colors
 vim.opt.undofile = true           -- Enable persistent undo
-vim.opt.wrap = false
+vim.opt.wrap = false              -- Wrapping of lines longer than the width of window
 
 vim.opt.conceallevel = 0         -- Disable concealing
 
--- for ufo.nvim
-vim.opt.foldcolumn = '1'     -- '0' is not bad
-vim.opt.foldlevel = 99       -- Using ufo provider need a large value
-vim.opt.foldlevelstart = 99
-vim.opt.foldenable = true
 
 -- The following sets Relative line numbering only
 -- in Normal mode, Absolute mode at other times

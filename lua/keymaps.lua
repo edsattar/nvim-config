@@ -8,6 +8,7 @@ local sections = {
   b = { name = " 󰓩 Buffers" },
   g = { name = " 󰊢 Git" },
   l = { name = " 󰏖 Lazy" },
+  t = { name = "  Terminal" },
 }
 
 -- disable arrow keys
@@ -46,8 +47,8 @@ map.n("<C-Right>",    ":vert res +2<CR>",     "Increase Window Width")
 map.n("<C-Left>",     ":vert res -2<CR>",     "Decrease Window Width")
 map.n("<C-s>",        ":w<CR>",               "Save file")
 map.i("<C-s>",        "<Esc>:w<CR>a",         "Save file")
-map.n("<Leader>qq",   ":q<CR>",               "Quit")
-map.n("<Leader>qa",   ":qall<CR>",            "Quit All")
+map.n("<C-q>",        ":q<CR>",               "Quit")
+map.n("<C-Q>",        ":qall<CR>",            "Quit All")
 map.n("<A-j>",        ":m+1<CR>",             "Move line down")
 map.n("<A-k>",        ":m-2<CR>",             "Move line up")
 map.v("<A-j>",        ":m'>+1<CR>gv=gv",      "Move line down")
@@ -102,51 +103,6 @@ if is_available("telescope.nvim") then
   map.n("<Leader>ft",    tsc_color_scheme,    "Find themes", "telescope.nvim")
   map.n("<Leader>fw",    tsc.live_grep,       "Find word", "telescope.nvim")
   map.n("<Leader>fW",    tsc_find_all_words,  "Find word in all files", "telescope.nvim")
-end
-
--- toggleTerminal
-if is_available("toggleterm.nvim") then
-  sections.t = { name = "  Terminal" }
-  function _G.set_terminal_keymaps()
-    local opts = { buffer = 0 }
-    vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-    vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-    vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-    vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-    vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
-  end
-
-  -- if you only want these mappings for
-  -- toggle term use term://*toggleterm#* instead
-  vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-
-  map.n("<Leader>tf", ":ToggleTerm direction=float<CR>", "ToggleTerm float")
-  map.n("<Leader>ts", ":ToggleTerm size=10 direction=horizontal<CR>", "ToggleTerm ── horizontal split")
-  map.n("<Leader>tv", ":ToggleTerm size=80 direction=vertical<CR>", "ToggleTerm │ vertical split")
-  local tt = utils.toggle_term_cmd
-
-  if vim.fn.executable("node") == 1 then
-    map.n("<Leader>tn", function() tt("node") end, "ToggleTerm 󰎙 node")
-  end
-
-  local python = vim.fn.executable("python") == 1 and "python" or vim.fn.executable("python3") == 1 and "python3"
-  if python then
-    map.n("<Leader>tp", function()
-      tt(python)
-    end, "ToggleTerm 󰌠 python")
-  end
-
-  if vim.fn.executable("lazygit") == 1 then
-    map.n("<Leader>tg", function()
-      tt({ cmd = "lazygit", hidden = true, direction = "float" })
-    end, "ToggleTerm 󰊢 lazygit")
-  end
-
-  if vim.fn.executable("htop") == 1 then
-    map.n("<Leader>to", function()
-      tt({ cmd = "htop", hidden = true, direction = "float" })
-    end, "ToggleTerm htop")
-  end
 end
 
 -- Comment.nvim

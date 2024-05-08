@@ -11,48 +11,36 @@ function M.is_available(plugin)
   return lazy_config_avail and lazy_config.plugins[plugin] ~= nil
 end
 
---- Create a button entity to use with the alpha dashboard
----@param sc string The keybinding string to convert to a button
----@param txt string The explanation text of what the keybinding does
----@return table # A button entity table for an alpha configuration
-function M.alpha_button(sc, txt)
-  -- replace <leader> in shortcut text with LDR for nicer printing
-  local sc_ = sc:gsub("%s", ""):gsub("LDR", "<leader>")
-  -- if the leader is set, replace the text with the actual leader key for nicer printing
-  if vim.g.mapleader then sc = sc:gsub("LDR", vim.g.mapleader == " " and "SPC" or vim.g.mapleader) end
-  -- return the button entity to display the correct text and send the correct keybinding on press
-  return {
-    type = "button",
-    val = txt,
-    on_press = function()
-      local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
-      vim.api.nvim_feedkeys(key, "normal", false)
-    end,
-    opts = {
-      position = "center",
-      text = txt,
-      shortcut = sc,
-      cursor = 5,
-      width = 36,
-      align_shortcut = "right",
-      hl = "DashboardCenter",
-      hl_shortcut = "DashboardShortcut",
-    },
-  }
+--- A table to manage ToggleTerm terminals created by the user, indexed by the command run and then the instance number
+---@type table<string,table<integer,table>>
+M.user_terminals = {}
+
+--- Merge extended options with a default table of options
+---@param default? table The default table that you want to merge into
+---@param opts? table The new options that should be merged with the default table
+---@return table # The merged table
+function M.extend_tbl(default, opts)
+  opts = opts or {}
+  return default and vim.tbl_deep_extend("force", default, opts) or opts
 end
 
 --- Toggle a user terminal if it exists, if not then create a new one and save it
 ---@param opts string|table A terminal command string or a table of options for Terminal:new() (Check toggleterm.nvim documentation for table format)
 function M.toggle_term_cmd(opts)
-  local terms = user_terminals
+  local terms = M.user_terminals
   -- if a command string is provided, create a basic table for Terminal:new() options
-  if type(opts) == "string" then opts = { cmd = opts, hidden = true } end
+  if type(opts) == "string" then opts = { cmd = opts } end
+  opts = M.extend_tbl({ hidden = true }, opts)
   local num = vim.v.count > 0 and vim.v.count or 1
   -- if terminal doesn't exist yet, create it
   if not terms[opts.cmd] then terms[opts.cmd] = {} end
   if not terms[opts.cmd][num] then
     if not opts.count then opts.count = vim.tbl_count(terms) * 100 + num end
-    if not opts.on_exit then opts.on_exit = function() terms[opts.cmd][num] = nil end end
+    local on_exit = opts.on_exit
+    opts.on_exit = function(...)
+      terms[opts.cmd][num] = nil
+      if on_exit then on_exit(...) end
+    end
     terms[opts.cmd][num] = require("toggleterm.terminal").Terminal:new(opts)
   end
   -- toggle the terminal
