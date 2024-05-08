@@ -174,7 +174,8 @@ map.n("<C-Left>", ":vert res -2<CR>", "Decrease Window Width")
 -- save/quit
 map.n("<C-s>", "<cmd>w<CR>", "Save file")
 map.i("<C-s>", "<Esc><cmd>w<CR>a", "Save file")
-map.n("<C-q>", "<cmd>q<cr>", "Quit")
+map.n("<Leader>qq", "<cmd>q<cr>", "Quit")
+map.n("<Leader>qa", "<cmd>q<cr>", "Quit All")
 
 -- Shift line up or down
 map.n("<A-j>", "<cmd>m+1<cr>", "Move line down")
