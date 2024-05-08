@@ -7,6 +7,7 @@
         "/home/ahmed/.local/share/nvim/Kickstart/mason/packages/lua-language-server/libexec/meta/7f5d87b3"
     ],
     "diagnostics.globals": [
-        "vim"
+        "vim",
+        "user_terminals"
     ]
 }
