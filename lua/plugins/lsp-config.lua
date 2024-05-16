@@ -15,11 +15,12 @@ return {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
 				local tsc = require("telescope.builtin")
+				local n = require("utils").map.n
 				local map = function(keys, func, desc)
 					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 				require("which-key").register({ g = { name = "Goto" } }, { buffer = 0 })
-				--
+
 				map("gd", tsc.lsp_definitions, "[d]efinition")
 				map("gD", vim.lsp.buf.declaration, "[D]eclaration")
 				map("ge", vim.diagnostic.open_float, "[e]rrors under cursor")
@@ -30,6 +31,8 @@ return {
 				map("gt", tsc.lsp_type_definitions, "[t]ype definition")
 				map("gh", vim.lsp.buf.hover, "[H]over")
 				map("ga", vim.lsp.buf.code_action, "[A]ction")
+				n("]e", vim.diagnostic.goto_next, "Next diagnostic")
+				n("[e", vim.diagnostic.goto_prev, "Previous diagnostic")
 
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
