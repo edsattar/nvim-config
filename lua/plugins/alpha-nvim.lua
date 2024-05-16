@@ -15,6 +15,8 @@ return {
       startify.button("e", " New File", ":ene <BAR> startinsert <CR>"),
       startify.button("r", "󰈙 Recent Files", ":Telescope oldfiles<CR>"),
       startify.button("f", " Find File", ":Telescope find_files<CR>"),
+      startify.button("s", " Last Session", "<CMD>SessionManager load_last_session<CR>"),
+
     }
     startify.opts.layout = {
       { type = "padding", val = 1 },

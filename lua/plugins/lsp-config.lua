@@ -3,6 +3,7 @@
 -- https://github.com/jay-babu/mason-null-ls.nvim#setup
 return {
 	"neovim/nvim-lspconfig",
+	lazy = false,
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
