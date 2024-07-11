@@ -17,8 +17,6 @@ vim.opt.hlsearch = true           -- Enable search highlight
 vim.opt.ignorecase = true         -- Case-insensitive searching
 -- vim.opt.inccommand = 'split'      -- Show live preview of :s command
 vim.opt.incsearch = true          -- Incremental search
-vim.opt.list = true               -- Sets how neovim will display certain whitespace characters in the editor.
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.number = true             -- Make line numbers default
 vim.opt.scrolloff = 10            -- Number of lines to keep above and below the cursor
 vim.opt.shiftwidth = 0            -- number of space inserted for indentation; when zero the 'tabstop' value will be used
