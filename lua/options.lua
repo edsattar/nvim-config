@@ -36,7 +36,7 @@ vim.opt.updatetime = 250          -- Decrease update time
 vim.opt.wrap = false              -- Wrapping of lines longer than the width of window
 
 vim.opt.conceallevel = 0          -- Disable concealing
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- The following sets Relative line numbering only
 -- in Normal mode, Absolute mode at other times
