@@ -27,6 +27,7 @@ return {
 			ensure_installed = {
 				"bash",
 				"c",
+				"css",
 				"html",
 				"java",
 				"javascript",

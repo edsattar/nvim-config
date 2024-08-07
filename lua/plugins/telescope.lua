@@ -100,7 +100,7 @@ return {
     map.n("<Leader>s'", tsc.marks, "Search ['] marks")
     map.n("<Leader>s.", tsc.oldfiles, "Search [.] Recently opened Files")
     map.n("<Leader>s/", tsc_current_buffer_fuzzy_find, "[/] Fuzzily search in current buffer")
-    map.n("<Leader>sb", tsc.buffers, "Search [b]uffers")
+    -- map.n("<Leader>sb", tsc.buffers, "Search [b]uffers")
     map.n("<Leader>sc", tsc.grep_string, "Search word under [c]ursor")
     map.n("<Leader>sC", tsc.commands, "Search [C]ommands")
     map.n("<Leader>se", tsc.diagnostics, "Search [e]rrors")
@@ -116,8 +116,10 @@ return {
     map.n("<Leader>sw", tsc.live_grep, "Search [w]ord")
     map.n("<Leader>sW", tsc_find_all_words, "Search [W]ord in all files")
 
-    require("which-key").register({
-      ["<Leader>s"] = { name = " 󰍉 [S]earch" },
-    })
+    require("which-key").add({ "<leader>s", group = " Search" })
   end,
+
+  keys = {
+    { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+  },
 }

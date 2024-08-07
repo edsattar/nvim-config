@@ -1,3 +1,0 @@
-# Configuration guide
-# https://github.com/astral-sh/ruff/blob/main/docs/configuration.md
-ignore = ["E501"]
