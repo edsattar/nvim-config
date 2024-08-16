@@ -56,7 +56,7 @@ return {
       --   size = 20,
       open_mapping = [[<C-\>]],
       -- insert_mappings = true, -- mappings enabled in insert mode
-      -- start_in_insert = true,
+      start_in_insert = true,
       shell = "pwsh",      -- use powershell
       float_opts = { border = "rounded" },
     })

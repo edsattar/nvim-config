@@ -92,6 +92,10 @@ return {
             },
             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
             -- diagnostics = { disable = { 'missing-fields' } },
+            diagnostics = {
+              disable = { "unused-local" },
+              globals = { "vim" },
+            },
           },
         },
       },
@@ -107,6 +111,15 @@ return {
       emmet_language_server = {
         filetypes = { "html", "javascriptreact", "typescriptreact" },
       },
+      -- ruff_lsp = {
+      -- 	capabilities = capabilities,
+      -- 	init_options = {
+      -- 		settings = {
+      -- 			-- Any extra CLI arguments for `ruff` go here.
+      -- 			args = {},
+      -- 		},
+      -- 	},
+      -- },
     }
 
     require("mason").setup({
