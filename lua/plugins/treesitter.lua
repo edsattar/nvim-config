@@ -8,7 +8,6 @@ return {
 	build = ":TSUpdate",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects", -- Syntax aware text-objects, select, move, swap, and peek support.
-		"windwp/nvim-ts-autotag", -- Use treesitter to autoclose and autorename html tag
     "nvim-treesitter/playground", -- Treesitter playground
     "hiphish/rainbow-delimiters.nvim", -- Rainbow parentheses
 	},
@@ -44,7 +43,6 @@ return {
 			},
 			-- Install parsers synchronously (only applied to `ensure_installed`)
 			sync_install = false,
-			autotag = { enable = true },
 			highlight = {
 				enable = true,
 				-- disable slow treesitter highlight for large files

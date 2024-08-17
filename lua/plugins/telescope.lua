@@ -1,3 +1,95 @@
+local tsc = require("telescope")
+local actions = require("telescope.actions")
+local actions_layout = require("telescope.actions.layout")
+local themes = require("telescope.themes")
+local B = require("telescope.builtin")
+local M = {
+  color_scheme = function()
+    B.colorscheme({ enable_preview = true })
+  end,
+
+  find_git_files = function()
+    if not pcall(B.git_files) then
+      B.find_files()
+    end
+  end,
+
+  find_all_files = function()
+    B.find_files({ hidden = true, no_ignore = true })
+  end,
+
+  find_all_words = function()
+    B.live_grep({
+      additional_args = function(args)
+        return vim.list_extend(args, { "--hidden", "--no-ignore" })
+      end,
+    })
+  end,
+
+  find_in_buffer = function()
+    B.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+      previewer = false,
+    }))
+  end,
+
+  grep_open_files = function()
+    B.live_grep({
+      grep_open_files = true,
+      prompt_title = "Live Grep in Open Files",
+    })
+  end,
+
+  neovim_files = function()
+    B.find_files({ cwd = vim.fn.stdpath("config") })
+  end,
+
+  file_browser = function()
+    tsc.extensions.file_browser.file_browser()
+  end,
+
+  select_find_command = function() -- Sets the executable for find_files based on if FD is found.
+    local rg_command = {
+      "rg",
+      "--files",
+      "--color=never",
+      "--no-heading",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--hidden",
+      "--glob",
+      "!{.git/*,.svelte-kit/*,target/*,node_modules/*}, lua/user/*",
+      "--path-separator",
+      "/",
+    }
+
+    local fd_command = {
+      "fd",
+      "--type=f",
+      "--color=never",
+      "--path-separator=/",
+      "--hidden",
+      "--no-ignore",
+      "--exclude",
+      ".git",
+      "--exclude",
+      ".svelte-kit",
+      "--exclude",
+      "target",
+      "--exclude",
+      "node_modules",
+    }
+
+    local has_fd = vim.fn.executable("fd") or vim.fn.executable("fdfind")
+
+    if has_fd == 0 then
+      return rg_command
+    else
+      return fd_command
+    end
+  end,
+}
+
 -- https://github.com/nvim-telescope/telescope.nvim
 -- https://github.com/nvim-telescope/telescope-fzf-native.nvim
 return {
@@ -5,30 +97,27 @@ return {
   event = "VimEnter",
   branch = "0.1.x",
   dependencies = {
-    { "nvim-lua/plenary.nvim" },
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-ui-select.nvim",
+    "nvim-telescope/telescope-file-browser.nvim",                 -- file browser extension for telescope
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, --requires gcc or clang and make
-    { "nvim-telescope/telescope-ui-select.nvim" },
     { "nvim-tree/nvim-web-devicons",              enabled = vim.g.have_nerd_font },
   },
   config = function()
-    local actions = require("telescope.actions")
-    require("telescope").setup({
+    tsc.setup({
       defaults = {
-        prompt_prefix = "   ",
         initial_mode = "insert",
-        -- path_display = { "truncate" },
         layout_strategy = "flex",
         layout_config = {
+          width = 0.95,
+          height = 0.95,
           horizontal = {
             -- prompt_position = "top",
             preview_cutoff = 80,
             preview_width = 0.55,
-            width = 0.95,
-            height = 0.80,
           },
           vertical = {
-            width = 0.95,
-            height = 0.95,
+            preview_height = 0.45,
           },
         },
         mappings = {
@@ -37,89 +126,96 @@ return {
             ["<C-p>"] = actions.cycle_history_prev,
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
+            ["<C-q>"] = actions.close,
+            ["<M-p>"] = actions_layout.toggle_preview,
           },
           n = {
             ["q"] = actions.close,
+            ["<C-q>"] = actions.close,
+            ["<M-p>"] = actions_layout.toggle_preview,
           },
+        },
+        prompt_prefix = "   ",
+        -- path_display = { "truncate" },
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--trim",        -- trim the indentation at the beginning of presented line
+          "--path-separator=/", -- fixes issue with folders with () in their name
         },
       },
       extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown({
-            -- even more opts
-          }),
+        ["ui-select"] = { themes.get_dropdown() },
+        file_browser = {
+          sorting_strategy = "ascending",
+          grouped = true,
+        },
+      },
+      pickers = {
+        find_files = {
+          find_command = {
+            "fd",
+            "--type=f",
+            "--path-separator=/",
+            "--hidden",
+            "--no-ignore",
+            "--exclude",
+            ".git",
+            "--exclude",
+            ".next",
+            "--exclude",
+            "node_modules",
+          },
+        },
+        buffers = {
+          initial_mode = "normal",
+          mappings = {
+            i = {
+              ["<C-d>"] = actions.delete_buffer,
+            },
+            n = {
+              ["d"] = actions.delete_buffer,
+            },
+          },
+        },
+        grep_string = {
+          initial_mode = "normal",
         },
       },
     })
-    require("telescope").load_extension("ui-select")
-    require("telescope").load_extension("fzf")
 
-    -- See `:help telescope.builtin`
-
-    local map = require("utils").map
-    local tsc = require("telescope.builtin")
-
-    local function tsc_find_git_files()
-      if not pcall(tsc.git_files) then
-        tsc.find_files()
-      end
-    end
-    local function tsc_find_all_files()
-      tsc.find_files({ hidden = true, no_ignore = true })
-    end
-    local function tsc_find_all_words()
-      tsc.live_grep({
-        additional_args = function(args)
-          return vim.list_extend(args, { "--hidden", "--no-ignore" })
-        end,
-      })
-    end
-    local function tsc_color_scheme()
-      tsc.colorscheme({ enable_preview = true })
-    end
-    local function tsc_current_buffer_fuzzy_find()
-      tsc.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-        previewer = false,
-      }))
-    end
-
-    local function tsc_live_grep_open_files()
-      tsc.live_grep({
-        grep_open_files = true,
-        prompt_title = "Live Grep in Open Files",
-      })
-    end
-    local function tsc_find_neovim_files()
-      tsc.find_files({ cwd = vim.fn.stdpath("config") })
-    end
-
-    map.n("<Leader>gb", tsc.git_branches, "Git branches")
-    map.n("<Leader>gt", tsc.git_status, "Git status")
-    map.n("<Leader>gc", tsc.git_commits, "Git commits")
-    map.n("<Leader>s`", tsc.registers, "Search [`] registers")
-    map.n("<Leader>s'", tsc.marks, "Search ['] marks")
-    map.n("<Leader>s.", tsc.oldfiles, "Search [.] Recently opened Files")
-    map.n("<Leader>s/", tsc_current_buffer_fuzzy_find, "[/] Fuzzily search in current buffer")
-    -- map.n("<Leader>sb", tsc.buffers, "Search [b]uffers")
-    map.n("<Leader>sc", tsc.grep_string, "Search word under [c]ursor")
-    map.n("<Leader>sC", tsc.commands, "Search [C]ommands")
-    map.n("<Leader>se", tsc.diagnostics, "Search [e]rrors")
-    map.n("<Leader>sf", tsc_find_git_files, "Search [f]iles")
-    map.n("<Leader>sF", tsc_find_all_files, "Search all [F]iles")
-    map.n("<Leader>sh", tsc.help_tags, "Search [h]elp")
-    map.n("<Leader>sk", tsc.keymaps, "Search [k]eymaps")
-    map.n("<Leader>sn", tsc_find_neovim_files, "Search [n]eovim files")
-    map.n("<Leader>so", tsc_live_grep_open_files, "Grep in [o]pen files")
-    map.n("<Leader>sr", tsc.resume, "Search [r]esume")
-    map.n("<Leader>ss", tsc.builtin, "Search [s]elect Telescope")
-    map.n("<Leader>st", tsc_color_scheme, "Search [t]hemes")
-    map.n("<Leader>sw", tsc.live_grep, "Search [w]ord")
-    map.n("<Leader>sW", tsc_find_all_words, "Search [W]ord in all files")
+    tsc.load_extension("ui-select")
+    tsc.load_extension("fzf")
+    tsc.load_extension("file_browser")
 
     require("which-key").add({ "<leader>s", group = " Search" })
   end,
-
   keys = {
-    { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+    { "<leader>sb", B.buffers,         desc = "[b]uffers" },
+    { "<leader>sc", B.grep_string,     desc = "[c]ursor word search" },
+    { "<leader>sC", B.commands,        desc = "[C]ommands" },
+    { "<leader>sd", B.diagnostics,     desc = "[d]iagnostics" },
+    { "<leader>se", M.file_browser,    desc = "[e]xplorer, file" },
+    { "<leader>sf", B.find_files,      desc = "[f]iles" },
+    { "<leader>sF", M.find_all_files,  desc = "[F]iles, all" },
+    { "<leader>sg", B.git_commits,     desc = "[g]it commits" },
+    { "<leader>sh", B.help_tags,       desc = "[h]elp" },
+    { "<leader>sk", B.keymaps,         desc = "[k]eymaps" },
+    { "<leader>sn", M.neovim_files,    desc = "[n]vim files" },
+    { "<leader>so", M.grep_open_files, desc = "[o]pen files, search in" },
+    { "<leader>sr", B.resume,          desc = "[r]esume" }, --Lists the results incl. multi-selections of the previous picker
+    { "<leader>ss", B.builtin,         desc = "[s]elect telescope builtis" },
+    { "<leader>st", M.color_scheme,    desc = "[t]hemes" },
+    { "<leader>sw", B.live_grep,       desc = "[w]ord" },
+    { "<leader>sW", M.find_all_words,  desc = "[W]ord in all files" },
+    { "<leader>s'", B.marks,           desc = "['] marks" },
+    { "<leader>s.", B.oldfiles,        desc = "[.] Recently opened Files" },
+    { "<leader>s/", M.find_in_buffer,  desc = "[/] fzf in current buffer" },
+    { "<leader>s`", B.registers,       desc = "[`] registers" },
   },
 }
