@@ -8,6 +8,7 @@ return {
 	config = function()
 		require("mason-null-ls").setup({
 			ensure_installed = { "ruff", "stylua", "prettierd", "eslint_d" },
+      automatic_installation = true,
 		})
 
 		local null_ls = require("null-ls")
@@ -20,7 +21,7 @@ return {
 
 		null_ls.setup({
 			sources = {
-				-- formatting.black, -- python
+				formatting.black, -- python
 				formatting.stylua, -- lua
 				formatting.prettierd, -- many ...
 				-- diagnostics.eslint_d, -- javascript, typescript

@@ -9,8 +9,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "hrsh7th/cmp-nvim-lsp",           -- https://github.com/hrsh7th/cmp-nvim-lsp
-    { "j-hui/fidget.nvim", opts = {} }, -- Useful status updates for LSP.
-    { "folke/neodev.nvim", opts = {} }, -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+    { "j-hui/fidget.nvim",            opts = {} }, -- Useful status updates for LSP.
+    { "folke/neodev.nvim",            opts = {} }, -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+    { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" } }, -- replacement for tsserver(slow)
   },
   config = function()
     vim.api.nvim_create_autocmd({ "LspAttach" }, {
@@ -99,14 +100,14 @@ return {
           },
         },
       },
-      tsserver = {
-        capabilities = capabilities,
-        on_attach = function(client, _)
-          -- Disable tsserver formatting if you plan to use eslint_d
-          client.resolved_capabilities.document_formatting = false
-          client.resolved_capabilities.document_range_formatting = false
-        end,
-      },
+      -- tsserver = {
+      --   capabilities = capabilities,
+      --   on_attach = function(client, _)
+      --     -- Disable tsserver formatting if you plan to use eslint_d
+      --     client.resolved_capabilities.document_formatting = false
+      --     client.resolved_capabilities.document_range_formatting = false
+      --   end,
+      -- },
       tailwindcss = {},
       emmet_language_server = {
         filetypes = { "html", "javascriptreact", "typescriptreact" },
@@ -121,6 +122,9 @@ return {
       -- 	},
       -- },
     }
+
+    require("typescript-tools").setup({})
+
 
     require("mason").setup({
       ui = {

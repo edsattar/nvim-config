@@ -104,6 +104,7 @@ return {
     { "nvim-tree/nvim-web-devicons",              enabled = vim.g.have_nerd_font },
   },
   config = function()
+    local fb = require("telescope").extensions.file_browser
     tsc.setup({
       defaults = {
         initial_mode = "insert",
@@ -128,11 +129,15 @@ return {
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-q>"] = actions.close,
             ["<M-p>"] = actions_layout.toggle_preview,
+            ["<M-s>"] = actions.file_split,
+            ["<M-v>"] = actions.file_vsplit,
           },
           n = {
             ["q"] = actions.close,
             ["<C-q>"] = actions.close,
             ["<M-p>"] = actions_layout.toggle_preview,
+            ["s"] = actions.file_split,
+            ["v"] = actions.file_vsplit,
           },
         },
         prompt_prefix = "   ",
@@ -152,8 +157,13 @@ return {
       extensions = {
         ["ui-select"] = { themes.get_dropdown() },
         file_browser = {
+          initial_mode = "normal",
           sorting_strategy = "ascending",
           grouped = true,
+          mappings = {
+            n = {
+            },
+          },
         },
       },
       pickers = {
@@ -189,9 +199,9 @@ return {
       },
     })
 
+    tsc.load_extension("file_browser")
     tsc.load_extension("ui-select")
     tsc.load_extension("fzf")
-    tsc.load_extension("file_browser")
 
     require("which-key").add({ "<leader>s", group = " Search" })
   end,

@@ -17,3 +17,17 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 		vim.cmd("set formatoptions-=cro")
 	end,
 })
+
+-- Remember folds
+local remember_folds = vim.api.nvim_create_augroup("remember_folds", { clear = true })
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+  pattern = "*.*",
+  group = remember_folds,
+  command = "if &ft !=# 'help' | mkview | endif",
+})
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  pattern = "*.*",
+  group = remember_folds,
+  command = "if &ft !=# 'help' | silent! loadview | endif",
+})
+
