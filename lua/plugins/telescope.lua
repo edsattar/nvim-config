@@ -104,7 +104,6 @@ return {
     { "nvim-tree/nvim-web-devicons",              enabled = vim.g.have_nerd_font },
   },
   config = function()
-    local fb = require("telescope").extensions.file_browser
     tsc.setup({
       defaults = {
         initial_mode = "insert",

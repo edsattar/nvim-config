@@ -29,19 +29,9 @@ return {
     wk.add({
       { "<leader>b", group = "󰓩 Buffers" },
       { "<leader>g", group = "󰊢 Git" },
-      { "<leader>t", group = " Terminal" }
+      { "<leader>t", group = " Terminal" },
+      { "<leader>f", group = " Favorites" },
     })
-		-- require("which-key").register({
-		-- 	b = { name = " 󰓩 Buffers" },
-		-- 	g = { name = " 󰊢 Git" },
-		-- 	l = { name = " 󰏖 Lazy" },
-		-- 	t = { name = "  Terminal" },
-		-- 	-- ["c"] = { name = "[C]ode", _ = "which_key_ignore" },
-		-- 	-- ["d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-		-- 	-- ["r"] = { name = "[R]ename", _ = "which_key_ignore" },
-		-- 	-- ["w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-		-- 	-- ['t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-		-- 	-- ["h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
-		-- }, { prefix = "<Leader>" })
+
 	end,
 }

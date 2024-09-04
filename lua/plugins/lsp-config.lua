@@ -8,33 +8,35 @@ return {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    "hrsh7th/cmp-nvim-lsp",           -- https://github.com/hrsh7th/cmp-nvim-lsp
-    { "j-hui/fidget.nvim",            opts = {} }, -- Useful status updates for LSP.
-    { "folke/neodev.nvim",            opts = {} }, -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+    "hrsh7th/cmp-nvim-lsp",                                                       -- https://github.com/hrsh7th/cmp-nvim-lsp
+    { "j-hui/fidget.nvim",            opts = {} },                                -- Useful status updates for LSP.
+    { "folke/neodev.nvim",            opts = {} },                                -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" } }, -- replacement for tsserver(slow)
   },
   config = function()
+    vim.keymap.set("n", "<leader>fi", "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "LSP Info" })
+    vim.keymap.set("n", "<leader>fm", "<CMD>Mason<CR>",   { noremap = true, silent = true, desc = "Mason" })
+
     vim.api.nvim_create_autocmd({ "LspAttach" }, {
       group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
       callback = function(event)
         local tsc = require("telescope.builtin")
-        local n = require("utils").map.n
         local map = function(keys, func, desc)
-          vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+          vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
         end
 
         map("gd", tsc.lsp_definitions, "[d]efinition")
         map("gD", vim.lsp.buf.declaration, "[D]eclaration")
         map("ge", vim.diagnostic.open_float, "[e]rrors under cursor")
         map("gf", vim.lsp.buf.format, "[f]ormat")
-        map("gi", tsc.lsp_implementations, "[I]mplementations")
-        map("gm", tsc.lsp_references, "[M]entions")
-        map("gr", vim.lsp.buf.rename, "[R]ename")
+        map("gi", tsc.lsp_implementations, "[i]mplementations")
+        map("gm", tsc.lsp_references, "[m]entions")
+        map("gr", vim.lsp.buf.rename, "[r]ename")
         map("gt", tsc.lsp_type_definitions, "[t]ype definition")
-        map("gh", vim.lsp.buf.hover, "[H]over")
+        map("gh", vim.lsp.buf.hover, "[h]over")
         map("ga", vim.lsp.buf.code_action, "[A]ction")
-        n("]e", vim.diagnostic.goto_next, "Next diagnostic")
-        n("[e", vim.diagnostic.goto_prev, "Previous diagnostic")
+        map("]e", vim.diagnostic.goto_next, "Next diagnostic")
+        map("[e", vim.diagnostic.goto_prev, "Previous diagnostic")
 
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
@@ -124,7 +126,6 @@ return {
     }
 
     require("typescript-tools").setup({})
-
 
     require("mason").setup({
       ui = {
