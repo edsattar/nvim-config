@@ -1,95 +1,3 @@
-local tsc = require("telescope")
-local actions = require("telescope.actions")
-local actions_layout = require("telescope.actions.layout")
-local themes = require("telescope.themes")
-local B = require("telescope.builtin")
-local M = {
-  color_scheme = function()
-    B.colorscheme({ enable_preview = true })
-  end,
-
-  find_git_files = function()
-    if not pcall(B.git_files) then
-      B.find_files()
-    end
-  end,
-
-  find_all_files = function()
-    B.find_files({ hidden = true, no_ignore = true })
-  end,
-
-  find_all_words = function()
-    B.live_grep({
-      additional_args = function(args)
-        return vim.list_extend(args, { "--hidden", "--no-ignore" })
-      end,
-    })
-  end,
-
-  find_in_buffer = function()
-    B.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-      previewer = false,
-    }))
-  end,
-
-  grep_open_files = function()
-    B.live_grep({
-      grep_open_files = true,
-      prompt_title = "Live Grep in Open Files",
-    })
-  end,
-
-  neovim_files = function()
-    B.find_files({ cwd = vim.fn.stdpath("config") })
-  end,
-
-  file_browser = function()
-    tsc.extensions.file_browser.file_browser()
-  end,
-
-  select_find_command = function() -- Sets the executable for find_files based on if FD is found.
-    local rg_command = {
-      "rg",
-      "--files",
-      "--color=never",
-      "--no-heading",
-      "--line-number",
-      "--column",
-      "--smart-case",
-      "--hidden",
-      "--glob",
-      "!{.git/*,.svelte-kit/*,target/*,node_modules/*}, lua/user/*",
-      "--path-separator",
-      "/",
-    }
-
-    local fd_command = {
-      "fd",
-      "--type=f",
-      "--color=never",
-      "--path-separator=/",
-      "--hidden",
-      "--no-ignore",
-      "--exclude",
-      ".git",
-      "--exclude",
-      ".svelte-kit",
-      "--exclude",
-      "target",
-      "--exclude",
-      "node_modules",
-    }
-
-    local has_fd = vim.fn.executable("fd") or vim.fn.executable("fdfind")
-
-    if has_fd == 0 then
-      return rg_command
-    else
-      return fd_command
-    end
-  end,
-}
-
 -- https://github.com/nvim-telescope/telescope.nvim
 -- https://github.com/nvim-telescope/telescope-fzf-native.nvim
 return {
@@ -104,6 +12,10 @@ return {
     { "nvim-tree/nvim-web-devicons",              enabled = vim.g.have_nerd_font },
   },
   config = function()
+    local tsc = require("telescope")
+    local actions = require("telescope.actions")
+    local actions_layout = require("telescope.actions.layout")
+    local themes = require("telescope.themes")
     tsc.setup({
       defaults = {
         initial_mode = "insert",
@@ -204,27 +116,117 @@ return {
 
     require("which-key").add({ "<leader>s", group = " Search" })
   end,
-  keys = {
-    { "<leader>sb", B.buffers,         desc = "[b]uffers" },
-    { "<leader>sc", B.grep_string,     desc = "[c]ursor word search" },
-    { "<leader>sC", B.commands,        desc = "[C]ommands" },
-    { "<leader>sd", B.diagnostics,     desc = "[d]iagnostics" },
-    { "<leader>se", M.file_browser,    desc = "[e]xplorer, file" },
-    { "<leader>sf", B.find_files,      desc = "[f]iles" },
-    { "<leader>sF", M.find_all_files,  desc = "[F]iles, all" },
-    { "<leader>sg", B.git_commits,     desc = "[g]it commits" },
-    { "<leader>sh", B.help_tags,       desc = "[h]elp" },
-    { "<leader>sk", B.keymaps,         desc = "[k]eymaps" },
-    { "<leader>sn", M.neovim_files,    desc = "[n]vim files" },
-    { "<leader>so", M.grep_open_files, desc = "[o]pen files, search in" },
-    { "<leader>sr", B.resume,          desc = "[r]esume" }, --Lists the results incl. multi-selections of the previous picker
-    { "<leader>ss", B.builtin,         desc = "[s]elect telescope builtis" },
-    { "<leader>st", M.color_scheme,    desc = "[t]hemes" },
-    { "<leader>sw", B.live_grep,       desc = "[w]ord" },
-    { "<leader>sW", M.find_all_words,  desc = "[W]ord in all files" },
-    { "<leader>s'", B.marks,           desc = "['] marks" },
-    { "<leader>s.", B.oldfiles,        desc = "[.] Recently opened Files" },
-    { "<leader>s/", M.find_in_buffer,  desc = "[/] fzf in current buffer" },
-    { "<leader>s`", B.registers,       desc = "[`] registers" },
-  },
+  keys = function()
+    local tsc = require("telescope")
+    local B = require("telescope.builtin")
+    local M = {
+      color_scheme = function()
+        B.colorscheme({ enable_preview = true })
+      end,
+
+      find_git_files = function()
+        if not pcall(B.git_files) then
+          B.find_files()
+        end
+      end,
+
+      find_all_files = function()
+        B.find_files({ hidden = true, no_ignore = true })
+      end,
+
+      find_all_words = function()
+        B.live_grep({
+          additional_args = function(args)
+            return vim.list_extend(args, { "--hidden", "--no-ignore" })
+          end,
+        })
+      end,
+
+      find_in_buffer = function()
+        B.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+          previewer = false,
+        }))
+      end,
+
+      grep_open_files = function()
+        B.live_grep({
+          grep_open_files = true,
+          prompt_title = "Live Grep in Open Files",
+        })
+      end,
+
+      neovim_files = function()
+        B.find_files({ cwd = vim.fn.stdpath("config") })
+      end,
+
+      file_browser = function()
+        tsc.extensions.file_browser.file_browser()
+      end,
+
+      select_find_command = function() -- Sets the executable for find_files based on if FD is found.
+        local rg_command = {
+          "rg",
+          "--files",
+          "--color=never",
+          "--no-heading",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--hidden",
+          "--glob",
+          "!{.git/*,.svelte-kit/*,target/*,node_modules/*}, lua/user/*",
+          "--path-separator",
+          "/",
+        }
+
+        local fd_command = {
+          "fd",
+          "--type=f",
+          "--color=never",
+          "--path-separator=/",
+          "--hidden",
+          "--no-ignore",
+          "--exclude",
+          ".git",
+          "--exclude",
+          ".svelte-kit",
+          "--exclude",
+          "target",
+          "--exclude",
+          "node_modules",
+        }
+
+        local has_fd = vim.fn.executable("fd") or vim.fn.executable("fdfind")
+
+        if has_fd == 0 then
+          return rg_command
+        else
+          return fd_command
+        end
+      end,
+    }
+    return {
+      { "<leader>sc", B.grep_string,     desc = "[c]ursor word search" },
+      { "<leader>sb", B.buffers,         desc = "[b]uffers" },
+      { "<leader>sC", B.commands,        desc = "[C]ommands" },
+      { "<leader>sd", B.diagnostics,     desc = "[d]iagnostics" },
+      { "<leader>se", M.file_browser,    desc = "[e]xplorer, file" },
+      { "<leader>sf", B.find_files,      desc = "[f]iles" },
+      { "<leader>sF", M.find_all_files,  desc = "[F]iles, all" },
+      { "<leader>sg", B.git_commits,     desc = "[g]it commits" },
+      { "<leader>sh", B.help_tags,       desc = "[h]elp" },
+      { "<leader>sk", B.keymaps,         desc = "[k]eymaps" },
+      { "<leader>sn", M.neovim_files,    desc = "[n]vim files" },
+      { "<leader>so", M.grep_open_files, desc = "[o]pen files, search in" },
+      { "<leader>sr", B.resume,          desc = "[r]esume" }, --Lists the results incl. multi-selections of the previous picker
+      { "<leader>ss", B.builtin,         desc = "[s]elect telescope builtis" },
+      { "<leader>st", M.color_scheme,    desc = "[t]hemes" },
+      { "<leader>sw", B.live_grep,       desc = "[w]ord" },
+      { "<leader>sW", M.find_all_words,  desc = "[W]ord in all files" },
+      { "<leader>s'", B.marks,           desc = "['] marks" },
+      { "<leader>s.", B.oldfiles,        desc = "[.] Recently opened Files" },
+      { "<leader>s/", M.find_in_buffer,  desc = "[/] fzf in current buffer" },
+      { "<leader>s`", B.registers,       desc = "[`] registers" },
+    }
+  end,
 }
