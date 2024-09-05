@@ -14,10 +14,9 @@ return {
 				auto_trigger = true,
 				keymap = {
 					accept = "<M-cr>",
-					accept_word = "<M-k>",
-					accept_line = "<M-j>",
-					next = "<M-l>",
-					prev = "<M-h>",
+					accept_word = "<M-l>",
+					next = "<M-j>",
+					prev = "<M-k>",
 				},
 			},
 			filetypes = {

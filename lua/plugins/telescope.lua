@@ -114,28 +114,27 @@ return {
     tsc.load_extension("ui-select")
     tsc.load_extension("fzf")
 
-    require("which-key").add({ "<leader>s", group = " Search" })
   end,
   keys = function()
     local tsc = require("telescope")
-    local B = require("telescope.builtin")
-    local M = {
+    local builtin = require("telescope.builtin")
+    local custom = {
       color_scheme = function()
-        B.colorscheme({ enable_preview = true })
+        builtin.colorscheme({ enable_preview = true })
       end,
 
       find_git_files = function()
-        if not pcall(B.git_files) then
-          B.find_files()
+        if not pcall(builtin.git_files) then
+          builtin.find_files()
         end
       end,
 
       find_all_files = function()
-        B.find_files({ hidden = true, no_ignore = true })
+        builtin.find_files({ hidden = true, no_ignore = true })
       end,
 
       find_all_words = function()
-        B.live_grep({
+        builtin.live_grep({
           additional_args = function(args)
             return vim.list_extend(args, { "--hidden", "--no-ignore" })
           end,
@@ -143,20 +142,20 @@ return {
       end,
 
       find_in_buffer = function()
-        B.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+        builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
           previewer = false,
         }))
       end,
 
       grep_open_files = function()
-        B.live_grep({
+        builtin.live_grep({
           grep_open_files = true,
           prompt_title = "Live Grep in Open Files",
         })
       end,
 
       neovim_files = function()
-        B.find_files({ cwd = vim.fn.stdpath("config") })
+        builtin.find_files({ cwd = vim.fn.stdpath("config") })
       end,
 
       file_browser = function()
@@ -205,28 +204,29 @@ return {
         end
       end,
     }
+    require("which-key").add({ "<leader>s", group = "  Search" })
     return {
-      { "<leader>sc", B.grep_string,     desc = "[c]ursor word search" },
-      { "<leader>sb", B.buffers,         desc = "[b]uffers" },
-      { "<leader>sC", B.commands,        desc = "[C]ommands" },
-      { "<leader>sd", B.diagnostics,     desc = "[d]iagnostics" },
-      { "<leader>se", M.file_browser,    desc = "[e]xplorer, file" },
-      { "<leader>sf", B.find_files,      desc = "[f]iles" },
-      { "<leader>sF", M.find_all_files,  desc = "[F]iles, all" },
-      { "<leader>sg", B.git_commits,     desc = "[g]it commits" },
-      { "<leader>sh", B.help_tags,       desc = "[h]elp" },
-      { "<leader>sk", B.keymaps,         desc = "[k]eymaps" },
-      { "<leader>sn", M.neovim_files,    desc = "[n]vim files" },
-      { "<leader>so", M.grep_open_files, desc = "[o]pen files, search in" },
-      { "<leader>sr", B.resume,          desc = "[r]esume" }, --Lists the results incl. multi-selections of the previous picker
-      { "<leader>ss", B.builtin,         desc = "[s]elect telescope builtis" },
-      { "<leader>st", M.color_scheme,    desc = "[t]hemes" },
-      { "<leader>sw", B.live_grep,       desc = "[w]ord" },
-      { "<leader>sW", M.find_all_words,  desc = "[W]ord in all files" },
-      { "<leader>s'", B.marks,           desc = "['] marks" },
-      { "<leader>s.", B.oldfiles,        desc = "[.] Recently opened Files" },
-      { "<leader>s/", M.find_in_buffer,  desc = "[/] fzf in current buffer" },
-      { "<leader>s`", B.registers,       desc = "[`] registers" },
+      { "<leader>sc", builtin.grep_string,    desc = "[c]ursor word search" },
+      { "<leader>sb", builtin.buffers,        desc = "[b]uffers" },
+      { "<leader>sC", builtin.commands,       desc = "[C]ommands" },
+      { "<leader>sd", builtin.diagnostics,    desc = "[d]iagnostics" },
+      { "<leader>se", custom.file_browser,    desc = "[e]xplorer, file" },
+      { "<leader>sf", builtin.find_files,     desc = "[f]iles" },
+      { "<leader>sF", custom.find_all_files,  desc = "[F]iles, all" },
+      { "<leader>sg", builtin.git_commits,    desc = "[g]it commits" },
+      { "<leader>sh", builtin.help_tags,      desc = "[h]elp" },
+      { "<leader>sk", builtin.keymaps,        desc = "[k]eymaps" },
+      { "<leader>sn", custom.neovim_files,    desc = "[n]vim files" },
+      { "<leader>so", custom.grep_open_files, desc = "[o]pen files, search in" },
+      { "<leader>sp", builtin.resume,         desc = "[p]revious search" },
+      { "<leader>ss", builtin.builtin,        desc = "[s]elect telescope builtis" },
+      { "<leader>st", custom.color_scheme,    desc = "[t]hemes" },
+      { "<leader>sw", builtin.live_grep,      desc = "[w]ord" },
+      { "<leader>sW", custom.find_all_words,  desc = "[W]ord in all files" },
+      { "<leader>s'", builtin.marks,          desc = "['] marks" },
+      { "<leader>s.", builtin.oldfiles,       desc = "[.] Recently opened Files" },
+      { "<leader>s/", custom.find_in_buffer,  desc = "[/] fzf in current buffer" },
+      { "<leader>s`", builtin.registers,      desc = "[`] registers" },
     }
   end,
 }
