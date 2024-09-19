@@ -3,7 +3,7 @@
 local utils = require("utils")
 local map = utils.map
 
-map.v("p",            'p:let @+=@0<CR>:let @"=@0<CR>') -- Don't copy the replaced text after pasting in visual mode
+map.v("p", 'p:let @+=@0<CR>:let @"=@0<CR>') -- Don't copy the replaced text after pasting in visual mode
 map.n("k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map.n("j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
@@ -56,5 +56,5 @@ map.n("<C-Down>",     ":hori res -2<CR>",       "Window Height Decrease")
 map.n("<C-Right>",    ":vert res +2<CR>",       "Window Width Increase")
 map.n("<C-Left>",     ":vert res -2<CR>",       "Window Width Decrease")
 map.v("<Leader>/",    [["hy:%s/<C-r>h/<C-r>h]], "Search and replace selected text")
-map.n("<Leader>/",    "/<C-r><C-w>",        "Search and replace word under cursor")
+map.n("<Leader>/",    ":%s/<C-r><C-w>",        "Search and replace word under cursor")
 map.nv("<Leader>y",   '"+y',                    "Yank to system clipboard")

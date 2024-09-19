@@ -8,14 +8,15 @@ return {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    "hrsh7th/cmp-nvim-lsp",                                                       -- https://github.com/hrsh7th/cmp-nvim-lsp
-    { "j-hui/fidget.nvim",            opts = {} },                                -- Useful status updates for LSP.
-    { "folke/neodev.nvim",            opts = {} },                                -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+    "hrsh7th/cmp-nvim-lsp",                                                         -- https://github.com/hrsh7th/cmp-nvim-lsp
+    { "j-hui/fidget.nvim",            opts = {} },                                  -- Useful status updates for LSP.
+    { "folke/neodev.nvim",            opts = {} },                                  -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" } }, -- replacement for tsserver(slow)
   },
   config = function()
     vim.keymap.set("n", "<leader>fi", "<CMD>LspInfo<CR>", { noremap = true, silent = true, desc = "LSP Info" })
-    vim.keymap.set("n", "<leader>fm", "<CMD>Mason<CR>",   { noremap = true, silent = true, desc = "Mason" })
+    vim.keymap.set("n", "<leader>fr", "<CMD>LspRestart<CR>", { noremap = true, silent = true, desc = "LSP Restart" })
+    vim.keymap.set("n", "<leader>fm", "<CMD>Mason<CR>", { noremap = true, silent = true, desc = "Mason" })
 
     vim.api.nvim_create_autocmd({ "LspAttach" }, {
       group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
@@ -102,7 +103,7 @@ return {
           },
         },
       },
-      -- tsserver = {
+      -- ts_ls = {
       --   capabilities = capabilities,
       --   on_attach = function(client, _)
       --     -- Disable tsserver formatting if you plan to use eslint_d

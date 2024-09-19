@@ -56,7 +56,7 @@ return {
 }
     require("ufo").setup({
       close_fold_kinds_for_ft = {
-        default = { "imports", "comment" },
+        -- default = { "imports", "comment" },
       },
       enable_get_fold_virt_text = false,
       fold_virt_text_handler = handler,
