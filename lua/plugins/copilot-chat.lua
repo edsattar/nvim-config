@@ -28,6 +28,7 @@ return {
           return require("CopilotChat").toggle()
         end,
         desc = "Toggle Copilot Chat",
+        mode = { "n", "v" },
       },
     },
     config = function(_, opts)

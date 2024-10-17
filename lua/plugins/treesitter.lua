@@ -10,6 +10,7 @@ return {
 		"nvim-treesitter/nvim-treesitter-textobjects", -- Syntax aware text-objects, select, move, swap, and peek support.
     "nvim-treesitter/playground", -- Treesitter playground
     "hiphish/rainbow-delimiters.nvim", -- Rainbow parentheses
+    "virchau13/tree-sitter-astro", -- Astro syntax
 	},
 	config = function()
 		-- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -22,8 +23,10 @@ return {
 		-- 		requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
 		-- 	},
 		-- }
+    vim.treesitter.language.register("markdown", "mdx") -- the mdx filetype will use the markdown parser and queries.
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
+        "astro",
 				"bash",
 				"c",
 				"css",
