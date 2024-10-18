@@ -117,6 +117,7 @@ return {
       --   capabilities = capabilities,
       --   on_attach = function(client, _)
       --     -- Disable tsserver formatting if you plan to use eslint_d
+      --     -- client.server_capabilities.documentFormattingProvider = false
       --     client.resolved_capabilities.document_formatting = false
       --     client.resolved_capabilities.document_range_formatting = false
       --   end,

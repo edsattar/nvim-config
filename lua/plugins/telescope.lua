@@ -16,6 +16,7 @@ return {
     local actions = require("telescope.actions")
     local actions_layout = require("telescope.actions.layout")
     local themes = require("telescope.themes")
+    local fb_actions = require("telescope._extensions.file_browser.actions")
     tsc.setup({
       defaults = {
         initial_mode = "insert",
@@ -72,7 +73,12 @@ return {
           sorting_strategy = "ascending",
           grouped = true,
           mappings = {
+            i = {
+              ["<A-n>"] = fb_actions.create,
+            },
             n = {
+              c = false,
+              n = fb_actions.create,
             },
           },
         },
@@ -113,26 +119,17 @@ return {
     tsc.load_extension("file_browser")
     tsc.load_extension("ui-select")
     tsc.load_extension("fzf")
-
   end,
   keys = function()
     local tsc = require("telescope")
     local builtin = require("telescope.builtin")
+    -- stylua: ignore
     local custom = {
-      color_scheme = function()
-        builtin.colorscheme({ enable_preview = true })
-      end,
-
-      find_git_files = function()
-        if not pcall(builtin.git_files) then
-          builtin.find_files()
-        end
-      end,
-
-      find_all_files = function()
-        builtin.find_files({ hidden = true, no_ignore = true })
-      end,
-
+      color_scheme = function() builtin.colorscheme({ enable_preview = true }) end,
+      find_git_files = function() if not pcall(builtin.git_files) then builtin.find_files() end end,
+      find_all_files = function() builtin.find_files({ hidden = true, no_ignore = true }) end,
+      file_browser = function() tsc.extensions.file_browser.file_browser() end,
+      neovim_files = function() builtin.find_files({ cwd = vim.fn.stdpath("config") }) end,
       find_all_words = function()
         builtin.live_grep({
           additional_args = function(args)
@@ -140,28 +137,17 @@ return {
           end,
         })
       end,
-
       find_in_buffer = function()
         builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
           previewer = false,
         }))
       end,
-
       grep_open_files = function()
         builtin.live_grep({
           grep_open_files = true,
           prompt_title = "Live Grep in Open Files",
         })
       end,
-
-      neovim_files = function()
-        builtin.find_files({ cwd = vim.fn.stdpath("config") })
-      end,
-
-      file_browser = function()
-        tsc.extensions.file_browser.file_browser()
-      end,
-
       select_find_command = function() -- Sets the executable for find_files based on if FD is found.
         local rg_command = {
           "rg",
