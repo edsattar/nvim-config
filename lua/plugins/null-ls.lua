@@ -25,7 +25,6 @@ return {
         formatting.biome.with({
           filetypes = {
             "astro",
-            "css",
             "graphql",
             "javascript",
             "javascriptreact",
@@ -39,6 +38,7 @@ return {
         }),
         formatting.prettierd.with({
           filetypes = {
+            "css",
             "scss",
             "less",
             "html",

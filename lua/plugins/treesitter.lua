@@ -24,8 +24,10 @@ return {
 		-- 	},
 		-- }
     vim.treesitter.language.register("markdown", "mdx") -- the mdx filetype will use the markdown parser and queries.
+    vim.treesitter.language.register("angular", "ag")
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
+        "angular",
         "astro",
 				"bash",
 				"c",
