@@ -53,5 +53,7 @@ return {
         -- diagnostics.eslint_d, -- javascript, typescript
       },
     })
+
+    vim.keymap.set("n", "<leader>fn", "<CMD>NullLsInfo<CR>", { noremap = true, silent = true, desc = "NullLs Info" })
   end,
 }
