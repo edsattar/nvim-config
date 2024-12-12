@@ -14,15 +14,16 @@ return {
       end)(),
     },
     "hrsh7th/cmp-nvim-lsp", -- https://github.com/hrsh7th/cmp-nvim-lsp
-    "hrsh7th/cmp-path",   -- https://github.com/hrsh7th/cmp-path
-    "hrsh7th/cmp-buffer", -- https://github.com/hrsh7th/cmp-buffer
-    "hrsh7th/cmp-cmdline", -- https://github.com/hrsh7th/cmp-cmdline
-    "petertriho/cmp-git", -- provide completions from git source https://github.com/petertriho/cmp-git
+    "hrsh7th/cmp-path",     -- https://github.com/hrsh7th/cmp-path
+    "hrsh7th/cmp-buffer",   -- https://github.com/hrsh7th/cmp-buffer
+    "hrsh7th/cmp-cmdline",  -- https://github.com/hrsh7th/cmp-cmdline
+    "petertriho/cmp-git",   -- provide completions from git source https://github.com/petertriho/cmp-git
     "onsails/lspkind-nvim", -- adds vscode-like pictograms https://github.com/onsails/lspkind-nvim
     "nvim-tree/nvim-web-devicons",
     "roobert/tailwindcss-colorizer-cmp.nvim",
     "rafamadriz/friendly-snippets",
     "saadparwaiz1/cmp_luasnip",
+    "luckasRanarison/tailwind-tools.nvim",
   },
   config = function()
     local cursor_at_end = function() -- check if line is empty
@@ -32,6 +33,12 @@ return {
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local select_opts = { behavior = cmp.SelectBehavior.Select }
+
+    require("tailwind-tools").setup({
+      conceal = {
+        symbol = "…", -- 󱏿
+      },
+    })
 
     cmp.setup({
       snippet = {
@@ -129,4 +136,8 @@ return {
     })
     require("cmp_git").setup()
   end,
+  keys = {
+    { "<A-x>", "<CMD>TailwindConcealToggle<CR>", desc = "Toggle Tailwind Conceal" },
+  },
+
 }

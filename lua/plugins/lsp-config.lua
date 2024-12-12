@@ -133,7 +133,7 @@ return {
       -- },
     }
 
-    -- require("typescript-tools").setup({})
+    require("typescript-tools").setup({})
 
     require("mason").setup({
       ui = {
