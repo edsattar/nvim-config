@@ -7,7 +7,7 @@ return {
   },
   config = function()
     require("mason-null-ls").setup({
-      ensure_installed = { "ruff", "stylua", "prettierd", "eslint_d", "biome" },
+      ensure_installed = { "ruff", "stylua", "prettier", "eslint_d" },
       automatic_installation = true,
     })
 
@@ -22,33 +22,34 @@ return {
     null_ls.setup({
       sources = {
         formatting.black, -- python
-        formatting.biome.with({
-          filetypes = {
-            "astro",
-            "graphql",
-            "javascript",
-            "javascriptreact",
-            "json",
-            "jsonc",
-            "svelte",
-            "typescript",
-            "typescriptreact",
-            "vue",
-          },
-        }),
-        formatting.prettierd.with({
-          filetypes = {
-            "css",
-            "scss",
-            "less",
-            "html",
-            "yaml",
-            "markdown",
-            "markdown.mdx",
-            "handlebars",
-            "htmlangular",
-          },
-        }),
+        -- formatting.biome.with({
+        --   filetypes = {
+        --   },
+        -- }),
+        formatting.prettier,
+        -- formatting.prettierd.with({
+        --   filetypes = {
+        --     "astro",
+        --     "graphql",
+        --     "json",
+        --     "jsonc",
+        --     "svelte",
+        --     "vue",
+        --     "css",
+        --     "handlebars",
+        --     "html",
+        --     "htmlangular",
+        --     "javascript",
+        --     "javascriptreact",
+        --     "less",
+        --     "markdown",
+        --     "markdown.mdx",
+        --     "scss",
+        --     "typescript",
+        --     "typescriptreact",
+        --     "yaml",
+        --   },
+        -- }),
         formatting.stylua, -- lua
         -- diagnostics.eslint_d, -- javascript, typescript
       },
