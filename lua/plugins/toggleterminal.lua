@@ -24,8 +24,8 @@ return {
 
     map.n("<Leader>tt", ":ToggleTerm <CR>", "ToggleTerm")
     map.n("<Leader>tf", ":ToggleTerm direction=float<CR>", "ToggleTerm float")
-    map.n("<Leader>ts", ":ToggleTerm size=10 direction=horizontal<CR>", "ToggleTerm ── horizontal split")
-    map.n("<Leader>tv", ":ToggleTerm size=80 direction=vertical<CR>", "ToggleTerm │ vertical split")
+    map.n("<Leader>t_", ":ToggleTerm size=10 direction=horizontal<CR>", "ToggleTerm ── horizontal split")
+    map.n("<Leader>t|", ":ToggleTerm size=80 direction=vertical<CR>", "ToggleTerm │ vertical split")
 
     if vim.fn.executable("git") == 1 and vim.fn.executable("lazygit") == 1 then
       map.n("<Leader>tg", function()

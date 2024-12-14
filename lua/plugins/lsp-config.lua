@@ -134,6 +134,18 @@ return {
     }
 
     require("typescript-tools").setup({})
+    vim.keymap.set(
+      "n",
+      "<leader>tsti",
+      "<CMD>TSToolsOrganizeImports<CR>",
+      { noremap = true, silent = true, desc = "TSToolsOrganizeImports" }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>tsta",
+      "<CMD>TSToolsFixAll<CR>",
+      { noremap = true, silent = true, desc = "TSToolsFixAll" }
+    )
 
     require("mason").setup({
       ui = {
